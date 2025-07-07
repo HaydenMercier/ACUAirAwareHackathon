@@ -5,7 +5,10 @@ const airQualityService = require('../services/airQualityService');
 router.get('/', async (req, res) => {
   try {
     const { lat, lon } = req.query;
-    const data = await airQualityService.getCurrentAirQuality(lat, lon);
+    if (!lat || !lon) {
+      return res.status(400).json({ error: 'Latitude and longitude are required' });
+    }
+    const data = await airQualityService.getCurrentAirQuality(parseFloat(lat), parseFloat(lon));
     res.json(data);
   } catch (error) {
     res.status(500).json({ error: error.message });

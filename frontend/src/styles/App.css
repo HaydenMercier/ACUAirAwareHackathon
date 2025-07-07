@@ -1,12 +1,27 @@
 .App {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 header {
   text-align: center;
   margin-bottom: 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
+
+header p {
+  margin: 5px 0 0 0;
+  opacity: 0.9;
 }
 
 main {
@@ -15,36 +30,179 @@ main {
   gap: 20px;
 }
 
+.map-container {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.industry-marker {
+  background: none;
+  border: none;
+  font-size: 20px;
+}
+
 .dashboard {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
+.location-info, .metrics-panel, .industry-panel, .education-panel {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.location-info h3, .metrics-panel h3, .industry-panel h3, .education-panel h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+}
+
 .metric-cards {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
 
 .metric-card {
-  background: #f5f5f5;
+  background: #f8f9fa;
   padding: 15px;
   border-radius: 8px;
   text-align: center;
+  position: relative;
+}
+
+.metric-card h4 {
+  margin: 0 0 8px 0;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.metric-card .value {
+  display: block;
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #333;
+}
+
+.metric-card .level {
+  display: block;
+  font-size: 0.8em;
+  color: #666;
+  margin-top: 4px;
+}
+
+.metric-card .unit {
+  display: block;
+  font-size: 0.8em;
+  color: #666;
+  margin-top: 4px;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.correlation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.correlation-item {
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.correlation-item .industry-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.correlation-item .impact {
+  color: #e74c3c;
+  font-size: 0.9em;
+}
+
+.correlation-item .correlation {
+  color: #27ae60;
+  font-size: 0.9em;
+}
+
+.correlation-item .distance {
+  color: #666;
+  font-size: 0.8em;
+}
+
+.education-panel ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.education-panel li {
+  margin-bottom: 8px;
+  color: #555;
+  font-size: 0.9em;
+}
+
+.aqi-legend {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.aqi-legend h4 {
+  margin: 0 0 15px 0;
+  color: #333;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.color-box {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.legend-text {
   flex: 1;
 }
 
-.chart-placeholder {
-  height: 200px;
-  background: #f0f0f0;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.legend-text strong {
+  display: block;
+  font-size: 0.9em;
+  color: #333;
+}
+
+.legend-text .description {
+  font-size: 0.8em;
+  color: #666;
+  margin-top: 2px;
 }
 
 @media (max-width: 768px) {
   main {
     grid-template-columns: 1fr;
+  }
+  
+  .metric-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  header h1 {
+    font-size: 2em;
   }
 }
