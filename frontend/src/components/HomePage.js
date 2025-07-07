@@ -1,6 +1,6 @@
 import React from 'react';
 import ContactFooter from './ContactFooter';
-import smokestackIcon from '../icons/smokestackiconwhitenotext.png';
+import smokestackIcon from '../icons/smokestackiconwhite.png';
 
 const HomePage = ({ onEnterApp }) => {
   const leadingIndustries = [

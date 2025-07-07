@@ -189,14 +189,14 @@ function App() {
             aqiStandard={aqiStandard}
           />
         </div>
-      </main>
-      
-      
-      <footer className="persistent-footer">
-        <div className="footer-content">
-          Built with ❤️ for cleaner air • Data from OpenWeather & OpenStreetMap
+        <div className="info-card-area">
+          <div className="info-card">
+            <div className="info-content">
+              Built with ❤️ for cleaner air • Data from OpenWeather & OpenStreetMap
+            </div>
+          </div>
         </div>
-      </footer>
+      </main>
     </div>
   );
 }

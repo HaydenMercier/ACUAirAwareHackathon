@@ -661,10 +661,11 @@ main {
 .grid-layout {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 1fr auto;
   gap: 20px;
-  height: calc(100vh - 200px);
-  margin-bottom: 80px;
+  height: calc(100vh - 150px);
+  margin-bottom: 40px;
+  padding-bottom: 40px;
 }
 
 .map-area {
@@ -703,6 +704,24 @@ main {
 .dashboard-area {
   grid-column: 3;
   grid-row: 1 / 3;
+}
+
+.info-card-area {
+  grid-column: 1 / 4;
+  grid-row: 3;
+}
+
+.info-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.info-content {
+  color: #666;
+  font-size: 0.9em;
 }
 
 /* Industry Correlation */
@@ -775,7 +794,7 @@ main {
   background: #dc3545;
   color: white;
   padding: 0;
-  margin: -20px -20px 20px -20px;
+  margin: 10px -20px 20px -20px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -977,6 +996,28 @@ main {
 
 .footer-content a:hover {
   text-decoration: underline;
+}
+
+/* Contact Footer */
+.contact-footer {
+  background: #333;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  margin-top: 40px;
+  box-shadow: 0 -6px 20px rgba(0,0,0,0.3);
+  border-top: 2px solid #555;
+  position: relative;
+}
+
+.contact-footer::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #888, transparent);
 }
 
 /* Enhanced Location Popup */
