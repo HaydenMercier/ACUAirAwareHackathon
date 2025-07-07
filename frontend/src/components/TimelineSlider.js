@@ -1,64 +1,55 @@
 import React, { useState } from 'react';
 
 const TimelineSlider = ({ onTimeChange, onIntervalChange }) => {
-  const [interval, setInterval] = useState('year');
-  const [currentTime, setCurrentTime] = useState(2024);
+  const [viewMode, setViewMode] = useState('today');
+  const [currentYear, setCurrentYear] = useState(2024);
 
-  const intervals = {
-    decade: { min: 1980, max: 2020, step: 10, current: 2020 },
-    year: { min: 2020, max: 2024, step: 1, current: 2024 },
-    month: { min: 1, max: 12, step: 1, current: 12 },
-    day: { min: 1, max: 30, step: 1, current: 15 }
-  };
-
-  const handleIntervalChange = (newInterval) => {
-    setInterval(newInterval);
-    setCurrentTime(intervals[newInterval].current);
-    onIntervalChange(newInterval);
-    onTimeChange(intervals[newInterval].current);
-  };
-
-  const handleTimeChange = (value) => {
-    setCurrentTime(parseInt(value));
-    onTimeChange(parseInt(value));
-  };
-
-  const getTimeLabel = () => {
-    switch(interval) {
-      case 'decade': return `${currentTime}s`;
-      case 'year': return currentTime;
-      case 'month': return `Month ${currentTime}`;
-      case 'day': return `Day ${currentTime}`;
-      default: return currentTime;
+  const handleModeChange = (mode) => {
+    setViewMode(mode);
+    onIntervalChange(mode);
+    if (mode === 'today') {
+      onTimeChange('today');
+    } else {
+      onTimeChange(currentYear);
     }
+  };
+
+  const handleYearChange = (year) => {
+    setCurrentYear(parseInt(year));
+    onTimeChange(parseInt(year));
   };
 
   return (
     <div className="timeline-slider">
       <div className="interval-buttons">
-        {Object.keys(intervals).map(int => (
-          <button
-            key={int}
-            className={interval === int ? 'active' : ''}
-            onClick={() => handleIntervalChange(int)}
-          >
-            {int.charAt(0).toUpperCase() + int.slice(1)}
-          </button>
-        ))}
+        <button
+          className={viewMode === 'today' ? 'active' : ''}
+          onClick={() => handleModeChange('today')}
+        >
+          Today
+        </button>
+        <button
+          className={viewMode === 'year' ? 'active' : ''}
+          onClick={() => handleModeChange('year')}
+        >
+          Yearly Average
+        </button>
       </div>
       
-      <div className="slider-container">
-        <span className="time-label">{getTimeLabel()}</span>
-        <input
-          type="range"
-          min={intervals[interval].min}
-          max={intervals[interval].max}
-          step={intervals[interval].step}
-          value={currentTime}
-          onChange={(e) => handleTimeChange(e.target.value)}
-          className="time-slider"
-        />
-      </div>
+      {viewMode === 'year' && (
+        <div className="slider-container">
+          <span className="time-label">{currentYear}</span>
+          <input
+            type="range"
+            min={2020}
+            max={2024}
+            step={1}
+            value={currentYear}
+            onChange={(e) => handleYearChange(e.target.value)}
+            className="time-slider"
+          />
+        </div>
+      )}
     </div>
   );
 };

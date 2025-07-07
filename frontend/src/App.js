@@ -4,7 +4,8 @@ import MapView from './components/MapView';
 import Dashboard from './components/Dashboard';
 import TimelineSlider from './components/TimelineSlider';
 import HeatmapToggle from './components/HeatmapToggle';
-import SearchBar from './components/SearchBar';
+import Navbar from './components/Navbar';
+import ContactFooter from './components/ContactFooter';
 import { airQualityAPI } from './services/api';
 import './styles/App.css';
 
@@ -16,6 +17,7 @@ function App() {
   const [timeInterval, setTimeInterval] = useState('year');
   const [currentTime, setCurrentTime] = useState(2024);
   const [activeHeatmaps, setActiveHeatmaps] = useState(['airQuality']);
+  const [currentView, setCurrentView] = useState('home');
 
   useEffect(() => {
     if (!showHomePage) {
@@ -42,16 +44,37 @@ function App() {
     );
   };
 
+  const handleNavigateHome = () => {
+    setCurrentView('home');
+    setShowHomePage(true);
+  };
+  
+  const handleNavigateMap = () => {
+    setCurrentView('map');
+    setShowHomePage(false);
+  };
+  
   if (showHomePage) {
-    return <HomePage onEnterApp={() => setShowHomePage(false)} />;
+    return (
+      <div>
+        <Navbar 
+          showSearch={false}
+          onNavigateHome={handleNavigateHome}
+          onNavigateMap={handleNavigateMap}
+        />
+        <HomePage onEnterApp={handleNavigateMap} />
+      </div>
+    );
   }
 
   return (
     <div className="App">
-      <header>
-        <h1>🏭 Smokestack</h1>
-        <SearchBar onLocationSelect={setSelectedLocation} />
-      </header>
+      <Navbar 
+        showSearch={true}
+        onLocationSelect={setSelectedLocation}
+        onNavigateHome={handleNavigateHome}
+        onNavigateMap={handleNavigateMap}
+      />
       
       <div className="controls-panel">
         <TimelineSlider 
@@ -79,6 +102,8 @@ function App() {
           location={selectedLocation}
         />
       </main>
+      
+      <ContactFooter />
     </div>
   );
 }

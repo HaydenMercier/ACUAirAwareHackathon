@@ -1,4 +1,5 @@
 import React from 'react';
+import ContactFooter from './ContactFooter';
 
 const HomePage = ({ onEnterApp }) => {
   const leadingIndustries = [
@@ -71,6 +72,8 @@ const HomePage = ({ onEnterApp }) => {
           <p>Annual economic cost of air pollution</p>
         </div>
       </div>
+      
+      <ContactFooter />
     </div>
   );
 };
