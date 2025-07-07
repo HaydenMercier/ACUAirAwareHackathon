@@ -25,7 +25,11 @@ function App() {
   const [industries, setIndustries] = useState([]);
   const [apiError, setApiError] = useState(null);
   const [correlationData, setCorrelationData] = useState([
-    { industry: 'Loading...', impact: 'Calculating...', correlation: '--', distance: '--' }
+    { industry: 'Loading...', impact: 'Calculating...', correlation: '--', distance: '--' },
+    { industry: 'Analyzing...', impact: 'Processing...', correlation: '--', distance: '--' },
+    { industry: 'Scanning...', impact: 'Evaluating...', correlation: '--', distance: '--' },
+    { industry: 'Detecting...', impact: 'Measuring...', correlation: '--', distance: '--' },
+    { industry: 'Monitoring...', impact: 'Assessing...', correlation: '--', distance: '--' }
   ]);
   const [aqiStandard, setAqiStandard] = useState('EU');
   const [lastUpdated, setLastUpdated] = useState(null);
@@ -44,7 +48,11 @@ function App() {
         airQualityData
       );
       setCorrelationData(correlations.length > 0 ? correlations : [
-        { industry: 'No industries found', impact: 'No data available', correlation: 'N/A', distance: 'N/A' }
+        { industry: 'No industries found', impact: 'No data available', correlation: 'N/A', distance: 'N/A' },
+        { industry: 'Limited data coverage', impact: 'Insufficient sensors', correlation: 'N/A', distance: 'N/A' },
+        { industry: 'Remote location', impact: 'Low industrial activity', correlation: 'N/A', distance: 'N/A' },
+        { industry: 'Rural area detected', impact: 'Minimal pollution sources', correlation: 'N/A', distance: 'N/A' },
+        { industry: 'Clean air zone', impact: 'Background levels only', correlation: 'N/A', distance: 'N/A' }
       ]);
     }
   }, [selectedLocation, industries, airQualityData]);
