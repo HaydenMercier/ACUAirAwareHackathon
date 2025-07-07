@@ -34,20 +34,26 @@ const Dashboard = ({ airQualityData, loading, location, industries, onLocationSe
   
   const getAQILevel = (aqi) => {
     if (!aqi) return 'Unknown';
-    if (aqi <= 50) return 'Good';
-    if (aqi <= 100) return 'Moderate';
-    if (aqi <= 150) return 'Unhealthy for Sensitive';
-    if (aqi <= 200) return 'Unhealthy';
-    return 'Very Unhealthy';
+    switch(aqi) {
+      case 1: return 'Very Good';
+      case 2: return 'Good';
+      case 3: return 'Fair';
+      case 4: return 'Poor';
+      case 5: return 'Very Poor';
+      default: return 'Unknown';
+    }
   };
 
   const getAQIColor = (aqi) => {
     if (!aqi) return '#gray';
-    if (aqi <= 50) return '#00e400';
-    if (aqi <= 100) return '#ffff00';
-    if (aqi <= 150) return '#ff7e00';
-    if (aqi <= 200) return '#ff0000';
-    return '#8f3f97';
+    switch(aqi) {
+      case 1: return '#00e400';
+      case 2: return '#ffff00';
+      case 3: return '#ff7e00';
+      case 4: return '#ff0000';
+      case 5: return '#8f3f97';
+      default: return '#gray';
+    }
   };
 
 
@@ -77,9 +83,10 @@ const Dashboard = ({ airQualityData, loading, location, industries, onLocationSe
           <div>
             <div className="metric-cards">
               <div className="metric-card" style={{ borderLeft: `4px solid ${getAQIColor(airQualityData?.aqi)}` }}>
-                <h4>AQI</h4>
+                <h4>EU AQI</h4>
                 <span className="value">{airQualityData?.aqi || 'N/A'}</span>
                 <span className="level">{getAQILevel(airQualityData?.aqi)}</span>
+                <div className="aqi-standard-note">European Standard (1-5)</div>
               </div>
               <div className="metric-card">
                 <h4>PM2.5</h4>

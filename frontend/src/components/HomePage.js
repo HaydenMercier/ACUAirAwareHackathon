@@ -1,5 +1,6 @@
 import React from 'react';
 import ContactFooter from './ContactFooter';
+import smokestackIcon from '../icons/smokestackiconwhitenotext.png';
 
 const HomePage = ({ onEnterApp }) => {
   const leadingIndustries = [
@@ -30,13 +31,30 @@ const HomePage = ({ onEnterApp }) => {
       pollution: 'PM2.5, CO, Heavy Metals',
       impact: '11% of industrial emissions',
       description: 'Smelting and processing release carbon monoxide and metal particulates'
+    },
+    {
+      name: 'Agriculture',
+      icon: '🌾',
+      pollution: 'NH3, Pesticides, PM10',
+      impact: '14% of air pollution sources',
+      description: 'Livestock farming and crop production release ammonia and particulate matter'
+    },
+    {
+      name: 'Mining',
+      icon: '⛏️',
+      pollution: 'PM10, Heavy Metals, SO2',
+      impact: '8% of industrial emissions',
+      description: 'Extraction and processing operations release dust and toxic compounds'
     }
   ];
 
   return (
     <div className="home-page">
       <div className="hero-section">
-        <h1>🏭 Smokestack</h1>
+        <div className="hero-title">
+          <img src={smokestackIcon} alt="SmokeStack" className="hero-icon" />
+          <h1>SmokeStack</h1>
+        </div>
         <p className="tagline">Track Industrial Air Pollution Impact</p>
         <button className="enter-app-btn" onClick={onEnterApp}>
           Explore Air Quality Data
