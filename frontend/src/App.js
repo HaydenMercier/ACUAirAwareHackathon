@@ -96,7 +96,7 @@ function App() {
   
   if (showHomePage) {
     return (
-      <div>
+      <div className="App">
         <Navbar 
           onNavigateHome={handleNavigateHome}
           onNavigateMap={handleNavigateMap}
@@ -109,7 +109,7 @@ function App() {
   
   if (currentView === 'industries') {
     return (
-      <div>
+      <div className="App">
         <Navbar 
           onNavigateHome={handleNavigateHome}
           onNavigateMap={handleNavigateMap}
@@ -121,7 +121,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App map-page">
       <Navbar 
         onNavigateHome={handleNavigateHome}
         onNavigateMap={handleNavigateMap}

@@ -119,6 +119,33 @@ const Dashboard = ({ airQualityData, loading, location, industries, onLocationSe
           <li>Wind direction affects pollution dispersion patterns</li>
         </ul>
       </div>
+      
+      <div className="metrics-guide-panel">
+        <h3>📊 Understanding Air Quality Metrics</h3>
+        <div className="metric-explanation">
+          <div className="metric-item">
+            <strong>AQI (Air Quality Index):</strong> Overall air quality rating from 1-5 (EU) or 0-500 (US). Higher values indicate worse air quality.
+          </div>
+          <div className="metric-item">
+            <strong>PM2.5:</strong> Fine particles ≤2.5μm that penetrate deep into lungs. Major health concern from vehicles and industry.
+          </div>
+          <div className="metric-item">
+            <strong>NO2:</strong> Nitrogen dioxide from combustion. Causes respiratory issues and contributes to smog formation.
+          </div>
+          <div className="metric-item">
+            <strong>SO2:</strong> Sulfur dioxide from fossil fuel burning. Triggers asthma and forms acid rain.
+          </div>
+        </div>
+        <div className="usage-guide">
+          <h4>💡 How to Use This Data:</h4>
+          <ul>
+            <li>Check AQI before outdoor activities - avoid exercise when levels are high</li>
+            <li>Monitor PM2.5 if you have respiratory conditions</li>
+            <li>Use industry correlation data to identify pollution sources near you</li>
+            <li>Compare different locations to make informed living decisions</li>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };

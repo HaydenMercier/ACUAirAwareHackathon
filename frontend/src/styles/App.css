@@ -6,11 +6,15 @@ body {
 }
 
 .App {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+}
+
+.App.map-page {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px 40px 20px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  min-height: 100vh;
+  background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
 }
 
 /* Header Navigation */
@@ -108,16 +112,51 @@ main {
   gap: 20px;
 }
 
-.location-info, .metrics-panel, .industry-panel, .education-panel {
+.location-info, .metrics-panel, .industry-panel, .education-panel, .metrics-guide-panel {
   background: white;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.location-info h3, .metrics-panel h3, .industry-panel h3, .education-panel h3 {
+.location-info h3, .metrics-panel h3, .industry-panel h3, .education-panel h3, .metrics-guide-panel h3 {
   margin: 0 0 15px 0;
   color: #333;
+}
+
+/* Metrics Guide Panel */
+.metric-explanation {
+  margin-bottom: 20px;
+}
+
+.metric-item {
+  margin-bottom: 12px;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border-left: 3px solid #667eea;
+}
+
+.metric-item strong {
+  color: #667eea;
+}
+
+.usage-guide h4 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 1em;
+}
+
+.usage-guide ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.usage-guide li {
+  margin-bottom: 8px;
+  color: #555;
+  font-size: 0.9em;
+  line-height: 1.4;
 }
 
 .metric-cards {
@@ -255,11 +294,13 @@ main {
 
 /* Home Page Styles */
 .home-page {
-  min-height: calc(100vh - 80px);
+  min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   padding: 40px 20px;
-  margin: -20px -20px 0 -20px;
+  margin: 0;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
 }
 
 .hero-section {
@@ -1108,11 +1149,13 @@ main {
 
 /* Contributing Industries Page */
 .contributing-industries-page {
-  min-height: calc(100vh - 80px);
+  min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   padding: 40px 20px;
-  margin: -20px -20px 0 -20px;
+  margin: 0;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
 }
 
 .industries-hero {
