@@ -74,27 +74,39 @@ const Dashboard = ({ airQualityData, loading, location, industries, onLocationSe
         {loading ? (
           <div className="loading">Loading...</div>
         ) : (
-          <div className="metric-cards">
-            <div className="metric-card" style={{ borderLeft: `4px solid ${getAQIColor(airQualityData?.aqi)}` }}>
-              <h4>AQI</h4>
-              <span className="value">{airQualityData?.aqi || '--'}</span>
-              <span className="level">{getAQILevel(airQualityData?.aqi)}</span>
+          <div>
+            <div className="metric-cards">
+              <div className="metric-card" style={{ borderLeft: `4px solid ${getAQIColor(airQualityData?.aqi)}` }}>
+                <h4>AQI</h4>
+                <span className="value">{airQualityData?.aqi || 'N/A'}</span>
+                <span className="level">{getAQILevel(airQualityData?.aqi)}</span>
+              </div>
+              <div className="metric-card">
+                <h4>PM2.5</h4>
+                <span className="value">{airQualityData?.components?.pm2_5?.toFixed(1) || 'N/A'}</span>
+                <span className="unit">μg/m³</span>
+              </div>
+              <div className="metric-card">
+                <h4>NO2</h4>
+                <span className="value">{airQualityData?.components?.no2?.toFixed(1) || 'N/A'}</span>
+                <span className="unit">μg/m³</span>
+              </div>
+              <div className="metric-card">
+                <h4>SO2</h4>
+                <span className="value">{airQualityData?.components?.so2?.toFixed(1) || 'N/A'}</span>
+                <span className="unit">μg/m³</span>
+              </div>
             </div>
-            <div className="metric-card">
-              <h4>PM2.5</h4>
-              <span className="value">{airQualityData?.components?.pm2_5?.toFixed(1) || '--'}</span>
-              <span className="unit">μg/m³</span>
-            </div>
-            <div className="metric-card">
-              <h4>NO2</h4>
-              <span className="value">{airQualityData?.components?.no2?.toFixed(1) || '--'}</span>
-              <span className="unit">μg/m³</span>
-            </div>
-            <div className="metric-card">
-              <h4>SO2</h4>
-              <span className="value">{airQualityData?.components?.so2?.toFixed(1) || '--'}</span>
-              <span className="unit">μg/m³</span>
-            </div>
+            {airQualityData?.source === 'nearest' && (
+              <div className="data-notice nearest">
+                📍 Using nearest available data ({airQualityData.distance?.toFixed(1)}km away)
+              </div>
+            )}
+            {airQualityData?.source === 'unavailable' && (
+              <div className="data-notice unavailable">
+                ⚠️ No air quality data available for this region
+              </div>
+            )}
           </div>
         )}
       </div>

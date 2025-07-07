@@ -5,6 +5,7 @@ import Dashboard from './components/Dashboard';
 import TimelineSlider from './components/TimelineSlider';
 import HeatmapToggle from './components/HeatmapToggle';
 import Navbar from './components/Navbar';
+import ErrorBanner from './components/ErrorBanner';
 import ContactFooter from './components/ContactFooter';
 import { airQualityAPI } from './services/api';
 import './styles/App.css';
@@ -19,6 +20,7 @@ function App() {
   const [activeHeatmaps, setActiveHeatmaps] = useState(['airQuality']);
   const [currentView, setCurrentView] = useState('home');
   const [industries, setIndustries] = useState([]);
+  const [apiError, setApiError] = useState(null);
 
   useEffect(() => {
     if (!showHomePage) {
@@ -28,11 +30,21 @@ function App() {
 
   const fetchAirQuality = async () => {
     setLoading(true);
+    setApiError(null);
     try {
       const response = await airQualityAPI.getAirQualityData(selectedLocation.lat, selectedLocation.lon);
       setAirQualityData(response.data);
+      
+      // Check if response contains error info
+      if (response.data?.error) {
+        setApiError(response.data.error);
+      }
     } catch (error) {
       console.error('Failed to fetch air quality data:', error);
+      setApiError({ 
+        type: 'network', 
+        message: 'Failed to connect to air quality service' 
+      });
     }
     setLoading(false);
   };
@@ -72,6 +84,11 @@ function App() {
       <Navbar 
         onNavigateHome={handleNavigateHome}
         onNavigateMap={handleNavigateMap}
+      />
+      
+      <ErrorBanner 
+        error={apiError}
+        onDismiss={() => setApiError(null)}
       />
       
       <div className="controls-panel">

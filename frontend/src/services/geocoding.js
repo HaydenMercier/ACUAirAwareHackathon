@@ -79,18 +79,48 @@ class GeocodingService {
         params: {
           q: query,
           format: 'json',
-          limit: 10,
+          limit: 15,
           addressdetails: 1
         }
       });
       
-      return response.data.map(item => ({
-        name: item.display_name,
-        lat: parseFloat(item.lat),
-        lon: parseFloat(item.lon),
-        type: this.getLocationType(item.type),
-        address: item.address
-      }));
+      return response.data
+        .filter(item => {
+          const address = item.address || {};
+          return address.city || address.town || address.village || address.suburb;
+        })
+        .map(item => {
+          const address = item.address || {};
+          const suburb = address.suburb;
+          const city = address.city || address.town || address.village;
+          const state = address.state || address.region;
+          const country = address.country;
+          
+          let displayName;
+          if (suburb && city && state) {
+            displayName = `${suburb}, ${city}, ${state}, ${country}`;
+          } else if (city && state) {
+            displayName = `${city}, ${state}, ${country}`;
+          } else if (suburb && state) {
+            displayName = `${suburb}, ${state}, ${country}`;
+          } else if (city) {
+            displayName = `${city}, ${country}`;
+          } else {
+            displayName = `${suburb || state}, ${country}`;
+          }
+          
+          return {
+            name: displayName,
+            lat: parseFloat(item.lat),
+            lon: parseFloat(item.lon),
+            type: suburb ? 'suburb' : 'city',
+            city,
+            state,
+            country,
+            suburb
+          };
+        })
+        .slice(0, 8);
     } catch (error) {
       console.error('Location search failed:', error);
       return [];

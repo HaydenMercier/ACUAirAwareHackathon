@@ -37,8 +37,8 @@ const SearchBar = ({ onLocationSelect }) => {
   };
 
   return (
-    <div className="search-bar">
-      <div className="search-input-container">
+    <div className="search-bar-container">
+      <div className="search-input-wrapper">
         <input
           type="text"
           placeholder="Search locations..."
@@ -50,22 +50,21 @@ const SearchBar = ({ onLocationSelect }) => {
       </div>
       
       {showSuggestions && (
-        <div className="suggestions-dropdown">
+        <div className="search-suggestions">
           {loading ? (
-            <div className="suggestion-item loading-item">Searching...</div>
+            <div className="search-suggestion loading">Searching...</div>
           ) : suggestions.length > 0 ? (
             suggestions.map((suggestion, index) => (
               <div
                 key={index}
-                className="suggestion-item"
+                className="search-suggestion"
                 onClick={() => handleSelect(suggestion)}
               >
                 <span className="suggestion-name">{suggestion.name}</span>
-                <span className="suggestion-type">{suggestion.type}</span>
               </div>
             ))
           ) : (
-            <div className="suggestion-item no-results">No results found</div>
+            <div className="search-suggestion no-results">No results found</div>
           )}
         </div>
       )}
