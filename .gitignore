@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+__pycache__/
+
+# Environment variables
+.env
+.env.local
+
+# Build outputs
+frontend/build/
+backend/dist/
+
+# Data files
+data/raw/*.json
+data/processed/*.csv
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
