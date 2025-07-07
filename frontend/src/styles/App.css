@@ -528,6 +528,12 @@ main {
   border: 1px solid #bee5eb;
 }
 
+.data-notice.interpolated {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
 .data-notice.unavailable {
   background: #f8d7da;
   color: #721c24;

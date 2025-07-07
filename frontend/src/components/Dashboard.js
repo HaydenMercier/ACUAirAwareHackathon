@@ -102,6 +102,11 @@ const Dashboard = ({ airQualityData, loading, location, industries, onLocationSe
                 📍 Using nearest available data ({airQualityData.distance?.toFixed(1)}km away)
               </div>
             )}
+            {airQualityData?.source === 'interpolated' && (
+              <div className="data-notice interpolated">
+                📊 Interpolated from {airQualityData.sensorCount} sensors (avg {airQualityData.avgDistance?.toFixed(1)}km away)
+              </div>
+            )}
             {airQualityData?.source === 'unavailable' && (
               <div className="data-notice unavailable">
                 ⚠️ No air quality data available for this region
