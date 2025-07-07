@@ -7,6 +7,7 @@ import HeatmapToggle from './components/HeatmapToggle';
 import Navbar from './components/Navbar';
 import ErrorBanner from './components/ErrorBanner';
 import ContactFooter from './components/ContactFooter';
+import ContributingIndustries from './components/ContributingIndustries';
 import { airQualityAPI } from './services/api';
 import './styles/App.css';
 
@@ -67,14 +68,33 @@ function App() {
     setShowHomePage(false);
   };
   
+  const handleNavigateIndustries = () => {
+    setCurrentView('industries');
+    setShowHomePage(false);
+  };
+  
   if (showHomePage) {
     return (
       <div>
         <Navbar 
           onNavigateHome={handleNavigateHome}
           onNavigateMap={handleNavigateMap}
+          onNavigateIndustries={handleNavigateIndustries}
         />
         <HomePage onEnterApp={handleNavigateMap} />
+      </div>
+    );
+  }
+  
+  if (currentView === 'industries') {
+    return (
+      <div>
+        <Navbar 
+          onNavigateHome={handleNavigateHome}
+          onNavigateMap={handleNavigateMap}
+          onNavigateIndustries={handleNavigateIndustries}
+        />
+        <ContributingIndustries />
       </div>
     );
   }
@@ -84,6 +104,7 @@ function App() {
       <Navbar 
         onNavigateHome={handleNavigateHome}
         onNavigateMap={handleNavigateMap}
+        onNavigateIndustries={handleNavigateIndustries}
       />
       
       <ErrorBanner 

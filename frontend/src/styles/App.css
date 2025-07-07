@@ -824,6 +824,212 @@ main {
   font-family: monospace;
 }
 
+/* Contributing Industries Page */
+.contributing-industries-page {
+  min-height: calc(100vh - 80px);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 40px 20px;
+  margin: -20px -20px 0 -20px;
+}
+
+.industries-hero {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.industries-hero h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.hero-subtitle {
+  font-size: 1.3em;
+  opacity: 0.9;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.industries-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.industry-section {
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 40px;
+  border-radius: 20px;
+  padding: 40px;
+  backdrop-filter: blur(10px);
+}
+
+.industry-header {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.industry-visual {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.industry-main-icon {
+  font-size: 4em;
+}
+
+.industry-image {
+  font-size: 3em;
+  opacity: 0.7;
+}
+
+.industry-title h2 {
+  font-size: 2.5em;
+  margin: 0;
+}
+
+.industry-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.industry-description p {
+  font-size: 1.1em;
+  line-height: 1.7;
+  margin: 0;
+  text-align: justify;
+}
+
+.industry-widgets {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.facts-widget, .pollutants-widget {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 25px;
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+}
+
+.facts-widget h3, .pollutants-widget h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.3em;
+  color: #ffeb3b;
+}
+
+.facts-widget ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.facts-widget li {
+  margin-bottom: 10px;
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+.pollutant-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pollutant-tag {
+  background: rgba(255, 235, 59, 0.2);
+  color: #ffeb3b;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  font-weight: bold;
+  border: 1px solid rgba(255, 235, 59, 0.3);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pollutant-tag:hover {
+  background: rgba(255, 235, 59, 0.4);
+  transform: translateY(-2px);
+}
+
+.pollutant-tooltip {
+  position: fixed;
+  background: white;
+  color: #333;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  max-width: 300px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.pollutant-tooltip h4 {
+  margin: 0 0 10px 0;
+  color: #667eea;
+  font-size: 1.1em;
+}
+
+.pollutant-tooltip p {
+  margin: 8px 0;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+.pollutant-tooltip strong {
+  color: #333;
+}
+
+.action-section {
+  max-width: 1200px;
+  margin: 60px auto 0;
+  text-align: center;
+}
+
+.action-section h2 {
+  font-size: 2.5em;
+  margin-bottom: 40px;
+  color: #ffeb3b;
+}
+
+.action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.action-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+}
+
+.action-card h3 {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: #ffeb3b;
+}
+
+.action-card ul {
+  text-align: left;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.action-card li {
+  margin-bottom: 10px;
+  font-size: 1em;
+  line-height: 1.5;
+}
+
 @media (max-width: 768px) {
   main {
     grid-template-columns: 1fr;
@@ -834,6 +1040,30 @@ main {
   }
   
   header h1 {
+    font-size: 2em;
+  }
+  
+  .industries-hero h1 {
+    font-size: 2em;
+  }
+  
+  .industry-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+  
+  .industry-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .action-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .industry-title h2 {
     font-size: 2em;
   }
 }
