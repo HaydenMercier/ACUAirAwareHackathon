@@ -22,4 +22,24 @@ router.get('/correlation', async (req, res) => {
   }
 });
 
+router.get('/deaths', async (req, res) => {
+  try {
+    const { lat, lon, timeframe } = req.query;
+    const data = await industryService.getDeathsData(parseFloat(lat), parseFloat(lon), timeframe);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get('/historical', async (req, res) => {
+  try {
+    const { lat, lon, interval, time } = req.query;
+    const data = await industryService.getHistoricalData(parseFloat(lat), parseFloat(lon), interval, parseInt(time));
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = router;
