@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, CircleMarker, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import IndustryModal from './IndustryModal';
+import MapController from './MapController';
 import geocodingService from '../services/geocoding';
 import overpassService from '../services/overpassAPI';
 import { airQualityAPI } from '../services/api';
@@ -104,6 +105,7 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
         <MapClickHandler onLocationSelect={onLocationSelect} />
         
         <MapBounds />
+        <MapController selectedLocation={selectedLocation} />
         
 
         

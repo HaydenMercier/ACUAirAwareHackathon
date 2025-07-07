@@ -470,16 +470,17 @@ main {
 
 .suggestions-dropdown {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 2px);
   left: 0;
   right: 0;
   background: #f5f5f5;
   border: 1px solid #ccc;
   border-radius: 6px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  z-index: 1000;
+  z-index: 9999;
   max-height: 200px;
   overflow-y: auto;
+  margin-top: 2px;
 }
 
 .suggestion-item {
