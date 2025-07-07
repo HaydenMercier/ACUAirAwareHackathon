@@ -18,6 +18,7 @@ function App() {
   const [currentTime, setCurrentTime] = useState(2024);
   const [activeHeatmaps, setActiveHeatmaps] = useState(['airQuality']);
   const [currentView, setCurrentView] = useState('home');
+  const [industries, setIndustries] = useState([]);
 
   useEffect(() => {
     if (!showHomePage) {
@@ -58,7 +59,6 @@ function App() {
     return (
       <div>
         <Navbar 
-          showSearch={false}
           onNavigateHome={handleNavigateHome}
           onNavigateMap={handleNavigateMap}
         />
@@ -70,8 +70,6 @@ function App() {
   return (
     <div className="App">
       <Navbar 
-        showSearch={true}
-        onLocationSelect={setSelectedLocation}
         onNavigateHome={handleNavigateHome}
         onNavigateMap={handleNavigateMap}
       />
@@ -95,11 +93,14 @@ function App() {
           activeHeatmaps={activeHeatmaps}
           timeInterval={timeInterval}
           currentTime={currentTime}
+          onIndustriesUpdate={setIndustries}
         />
         <Dashboard 
           airQualityData={airQualityData}
           loading={loading}
           location={selectedLocation}
+          industries={industries}
+          onLocationSelect={setSelectedLocation}
         />
       </main>
       

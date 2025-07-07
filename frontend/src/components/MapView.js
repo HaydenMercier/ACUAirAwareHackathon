@@ -35,13 +35,13 @@ const MapBounds = () => {
   return null;
 };
 
-const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHeatmaps, timeInterval, currentTime }) => {
+const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHeatmaps, timeInterval, currentTime, onIndustriesUpdate }) => {
   const [selectedIndustry, setSelectedIndustry] = useState(null);
   const [showIndustryModal, setShowIndustryModal] = useState(false);
   const [locationInfo, setLocationInfo] = useState(null);
   const [industries, setIndustries] = useState([]);
   const [correlationData, setCorrelationData] = useState([]);
-  const [globalHeatmap, setGlobalHeatmap] = useState([]);
+
   
   useEffect(() => {
     const fetchLocationData = async () => {
@@ -51,6 +51,7 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
         
         const industryData = await overpassService.getIndustries(selectedLocation.lat, selectedLocation.lon, 0.3);
         setIndustries(industryData);
+        onIndustriesUpdate(industryData);
         
         // Fetch correlation data
         const correlation = await airQualityAPI.getIndustryData({ 
@@ -66,50 +67,11 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
     fetchLocationData();
   }, [selectedLocation]);
   
-  useEffect(() => {
-    // Generate global heatmap points
-    const generateGlobalHeatmap = () => {
-      const points = [];
-      // Major pollution hotspots worldwide
-      const hotspots = [
-        { lat: 39.9042, lon: 116.4074, intensity: 0.9 }, // Beijing
-        { lat: 28.7041, lon: 77.1025, intensity: 0.85 }, // Delhi
-        { lat: 31.2304, lon: 121.4737, intensity: 0.8 }, // Shanghai
-        { lat: 34.0522, lon: -118.2437, intensity: 0.7 }, // Los Angeles
-        { lat: 40.7128, lon: -74.0060, intensity: 0.65 }, // New York
-        { lat: 51.5074, lon: -0.1278, intensity: 0.6 }, // London
-        { lat: 35.6762, lon: 139.6503, intensity: 0.75 }, // Tokyo
-        { lat: -23.5505, lon: -46.6333, intensity: 0.7 }, // São Paulo
-        { lat: 19.4326, lon: -99.1332, intensity: 0.8 }, // Mexico City
-        { lat: 55.7558, lon: 37.6176, intensity: 0.65 } // Moscow
-      ];
-      
-      hotspots.forEach(spot => {
-        // Add some variation around each hotspot
-        for (let i = 0; i < 3; i++) {
-          points.push({
-            lat: spot.lat + (Math.random() - 0.5) * 2,
-            lon: spot.lon + (Math.random() - 0.5) * 2,
-            intensity: spot.intensity + (Math.random() - 0.5) * 0.3
-          });
-        }
-      });
-      
-      return points;
-    };
-    
-    setGlobalHeatmap(generateGlobalHeatmap());
-  }, []);
 
 
 
-  const getHeatmapColor = (intensity) => {
-    if (intensity > 0.8) return '#8b0000'; // Dark red
-    if (intensity > 0.6) return '#ff0000'; // Red
-    if (intensity > 0.4) return '#ff7e00'; // Orange
-    if (intensity > 0.2) return '#ffff00'; // Yellow
-    return '#00e400'; // Green
-  };
+
+
 
   const getAQIColor = (aqi) => {
     if (!aqi) return '#gray';
@@ -143,17 +105,7 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
         
         <MapBounds />
         
-        {/* Global Air Quality Heatmap */}
-        {activeHeatmaps.includes('airQuality') && globalHeatmap.map((point, index) => (
-          <CircleMarker
-            key={`heatmap-${index}`}
-            center={[point.lat, point.lon]}
-            radius={Math.max(3, point.intensity * 8)}
-            fillColor={getHeatmapColor(point.intensity)}
-            fillOpacity={0.7}
-            stroke={false}
-          />
-        ))}
+
         
         {/* Selected location marker */}
         <Marker position={[selectedLocation.lat, selectedLocation.lon]}>

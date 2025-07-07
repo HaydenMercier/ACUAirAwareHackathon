@@ -17,8 +17,15 @@ class GeocodingService {
       });
       
       const address = response.data.address || {};
+      let city = address.city || address.town || address.village;
+      
+      // If no city found, search for nearest city
+      if (!city) {
+        city = await this.findNearestCity(lat, lon);
+      }
+      
       return {
-        city: address.city || address.town || address.village || 'Unknown City',
+        city: city || 'Remote Location',
         country: address.country || 'Unknown Country',
         state: address.state || address.region || '',
         fullAddress: response.data.display_name || `${lat}, ${lon}`
@@ -26,11 +33,43 @@ class GeocodingService {
     } catch (error) {
       console.error('Geocoding failed:', error);
       return {
-        city: 'Unknown City',
+        city: 'Remote Location',
         country: 'Unknown Country',
         state: '',
         fullAddress: `${lat.toFixed(4)}, ${lon.toFixed(4)}`
       };
+    }
+  }
+  
+  async findNearestCity(lat, lon) {
+    try {
+      const response = await axios.get(`${this.nominatimUrl}/search`, {
+        params: {
+          lat,
+          lon,
+          format: 'json',
+          addressdetails: 1,
+          limit: 5,
+          extratags: 1,
+          namedetails: 1,
+          bounded: 1,
+          viewbox: `${lon-1},${lat-1},${lon+1},${lat+1}` // Search within ~100km radius
+        }
+      });
+      
+      // Find the first city/town in results
+      for (const result of response.data) {
+        const address = result.address || {};
+        const city = address.city || address.town || address.village;
+        if (city) {
+          return `Near ${city}`;
+        }
+      }
+      
+      return null;
+    } catch (error) {
+      console.error('Nearest city search failed:', error);
+      return null;
     }
   }
 

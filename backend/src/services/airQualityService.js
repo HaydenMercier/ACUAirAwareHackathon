@@ -41,7 +41,12 @@ class AirQualityService {
   }
 
   async getHistoricalData(location, days = 7) {
-    return { message: 'Historical data endpoint', location, days };
+    // Historical data requires OpenWeather historical API (paid tier)
+    return { 
+      message: 'Historical data not available - requires paid API access', 
+      location, 
+      days 
+    };
   }
 
   formatAirQualityData(data) {

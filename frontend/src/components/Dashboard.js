@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import AQILegend from './AQILegend';
+import SearchBar from './SearchBar';
 import geocodingService from '../services/geocoding';
-import { airQualityAPI } from '../services/api';
+import correlationService from '../services/correlationService';
 
-const Dashboard = ({ airQualityData, loading, location }) => {
+const Dashboard = ({ airQualityData, loading, location, industries, onLocationSelect }) => {
   const [locationInfo, setLocationInfo] = useState(null);
+  const [correlationData, setCorrelationData] = useState([]);
   
   useEffect(() => {
     const fetchLocationInfo = async () => {
@@ -18,6 +20,17 @@ const Dashboard = ({ airQualityData, loading, location }) => {
     
     fetchLocationInfo();
   }, [location]);
+  
+  useEffect(() => {
+    if (industries && airQualityData) {
+      const correlations = correlationService.calculateProximityCorrelation(
+        location, 
+        industries, 
+        airQualityData
+      );
+      setCorrelationData(correlations);
+    }
+  }, [location, industries, airQualityData]);
   
   const getAQILevel = (aqi) => {
     if (!aqi) return 'Unknown';
@@ -37,27 +50,7 @@ const Dashboard = ({ airQualityData, loading, location }) => {
     return '#8f3f97';
   };
 
-  const [correlationData, setCorrelationData] = useState([]);
-  
-  useEffect(() => {
-    const fetchCorrelationData = async () => {
-      try {
-        const response = await airQualityAPI.getIndustryData({ 
-          lat: location.lat, 
-          lon: location.lon 
-        });
-        setCorrelationData(response.data?.correlations || [
-          { industry: 'Industrial Regions', impact: 'Mixed Pollutants', correlation: '78%', distance: '5.2 km' },
-          { industry: 'Urban Centers', impact: 'Vehicle Emissions', correlation: '65%', distance: '3.1 km' },
-          { industry: 'Agricultural Regions', impact: 'Agricultural Runoff', correlation: '45%', distance: '8.7 km' },
-        ]);
-      } catch (error) {
-        console.error('Failed to fetch correlation data:', error);
-      }
-    };
-    
-    fetchCorrelationData();
-  }, [location]);
+
 
   return (
     <div className="dashboard">
@@ -70,6 +63,9 @@ const Dashboard = ({ airQualityData, loading, location }) => {
           </div>
           <div className="location-country">{locationInfo?.country || ''}</div>
           <div className="location-coords">{location.lat.toFixed(4)}, {location.lon.toFixed(4)}</div>
+        </div>
+        <div className="search-container">
+          <SearchBar onLocationSelect={onLocationSelect} />
         </div>
       </div>
 

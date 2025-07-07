@@ -47,7 +47,9 @@ const TimelineSlider = ({ onTimeChange, onIntervalChange }) => {
             value={currentYear}
             onChange={(e) => handleYearChange(e.target.value)}
             className="time-slider"
+            disabled
           />
+          <span className="data-status">Historical data not available</span>
         </div>
       )}
     </div>

@@ -36,20 +36,12 @@ class IndustryService {
   }
 
   async getHistoricalData(lat, lon, interval, time) {
-    // Mock historical data
-    const data = [];
-    const baseAQI = 75;
-    
-    for (let i = 0; i < 10; i++) {
-      data.push({
-        time: interval === 'year' ? time - i : time + i,
-        aqi: baseAQI + (Math.random() - 0.5) * 30,
-        pm25: 15 + (Math.random() - 0.5) * 10,
-        deaths: Math.floor(Math.random() * 20) + 5
-      });
-    }
-    
-    return { data, interval };
+    // Historical data not available - would require historical air quality API
+    return { 
+      message: 'Historical data not available', 
+      data: [], 
+      interval 
+    };
   }
 }
 
