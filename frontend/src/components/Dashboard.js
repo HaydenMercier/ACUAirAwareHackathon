@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import AQILegend from './AQILegend';
 import SearchBar from './SearchBar';
 import geocodingService from '../services/geocoding';
 import correlationService from '../services/correlationService';
+import { convertEUtoUS, getAQILevel, getAQIColor } from '../utils/aqiConverter';
 
-const Dashboard = ({ airQualityData, loading, location, industries, onLocationSelect }) => {
+const Dashboard = ({ airQualityData, loading, location, industries, onLocationSelect, aqiStandard = 'EU' }) => {
   const [locationInfo, setLocationInfo] = useState(null);
   const [correlationData, setCorrelationData] = useState([]);
   
@@ -32,29 +32,12 @@ const Dashboard = ({ airQualityData, loading, location, industries, onLocationSe
     }
   }, [location, industries, airQualityData]);
   
-  const getAQILevel = (aqi) => {
-    if (!aqi) return 'Unknown';
-    switch(aqi) {
-      case 1: return 'Very Good';
-      case 2: return 'Good';
-      case 3: return 'Fair';
-      case 4: return 'Poor';
-      case 5: return 'Very Poor';
-      default: return 'Unknown';
-    }
+  const getDisplayAQI = () => {
+    if (!airQualityData?.aqi) return null;
+    return aqiStandard === 'US' ? convertEUtoUS(airQualityData.aqi) : airQualityData.aqi;
   };
-
-  const getAQIColor = (aqi) => {
-    if (!aqi) return '#gray';
-    switch(aqi) {
-      case 1: return '#00e400';
-      case 2: return '#ffff00';
-      case 3: return '#ff7e00';
-      case 4: return '#ff0000';
-      case 5: return '#8f3f97';
-      default: return '#gray';
-    }
-  };
+  
+  const displayAqi = getDisplayAQI();
 
 
 
@@ -82,11 +65,11 @@ const Dashboard = ({ airQualityData, loading, location, industries, onLocationSe
         ) : (
           <div>
             <div className="metric-cards">
-              <div className="metric-card" style={{ borderLeft: `4px solid ${getAQIColor(airQualityData?.aqi)}` }}>
-                <h4>EU AQI</h4>
-                <span className="value">{airQualityData?.aqi || 'N/A'}</span>
-                <span className="level">{getAQILevel(airQualityData?.aqi)}</span>
-                <div className="aqi-standard-note">European Standard (1-5)</div>
+              <div className="metric-card" style={{ borderLeft: `4px solid ${getAQIColor(displayAqi, aqiStandard)}` }}>
+                <h4>{aqiStandard} AQI</h4>
+                <span className="value">{displayAqi || 'N/A'}</span>
+                <span className="level">{displayAqi ? getAQILevel(displayAqi, aqiStandard) : 'Unknown'}</span>
+                <div className="aqi-standard-note">{aqiStandard === 'EU' ? 'European Standard (1-5)' : 'US Standard (0-500)'}</div>
               </div>
               <div className="metric-card">
                 <h4>PM2.5</h4>
@@ -123,21 +106,9 @@ const Dashboard = ({ airQualityData, loading, location, industries, onLocationSe
         )}
       </div>
 
-      <div className="industry-panel">
-        <h3>🏭 Industry Correlation</h3>
-        <div className="correlation-list">
-          {correlationData.map((item, index) => (
-            <div key={index} className="correlation-item">
-              <div className="industry-name">{item.industry}</div>
-              <div className="impact">{item.impact}</div>
-              <div className="correlation">{item.correlation} correlation</div>
-              <div className="distance">{item.distance} away</div>
-            </div>
-          ))}
-        </div>
-      </div>
 
-      <AQILegend />
+
+
       
       <div className="education-panel">
         <h3>💡 Quick Facts</h3>

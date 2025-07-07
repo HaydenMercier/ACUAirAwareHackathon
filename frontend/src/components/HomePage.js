@@ -51,9 +51,8 @@ const HomePage = ({ onEnterApp }) => {
   return (
     <div className="home-page">
       <div className="hero-section">
-        <div className="hero-title">
-          <img src={smokestackIcon} alt="SmokeStack" className="hero-icon" />
-          <h1>SmokeStack</h1>
+        <div className="hero-logo">
+          <img src={smokestackIcon} alt="SmokeStack" className="hero-main-logo" />
         </div>
         <p className="tagline">Track Industrial Air Pollution Impact</p>
         <button className="enter-app-btn" onClick={onEnterApp}>
