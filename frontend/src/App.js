@@ -58,25 +58,45 @@ function App() {
   }, [selectedLocation, industries, airQualityData]);
 
   const fetchAirQuality = async () => {
+    console.log('🚀 fetchAirQuality started for location:', selectedLocation);
     setLoading(true);
     setApiError(null);
+    
     try {
+      console.log('📡 Calling airQualityAPI.getAirQualityData...');
       const response = await airQualityAPI.getAirQualityData(selectedLocation.lat, selectedLocation.lon);
+      
+      console.log('📝 API Response received:', {
+        hasData: !!response.data,
+        dataKeys: response.data ? Object.keys(response.data) : 'no data',
+        aqi: response.data?.aqi,
+        components: response.data?.components ? Object.keys(response.data.components) : 'no components'
+      });
+      
       setAirQualityData(response.data);
       setLastUpdated(new Date());
       
+      console.log('✅ Air quality data set in state:', response.data);
+      
       // Check if response contains error info
       if (response.data?.error) {
+        console.warn('⚠️ API returned error:', response.data.error);
         setApiError(response.data.error);
       }
     } catch (error) {
-      console.error('Failed to fetch air quality data:', error);
+      console.error('❌ fetchAirQuality failed:', {
+        message: error.message,
+        stack: error.stack,
+        selectedLocation
+      });
       setApiError({ 
         type: 'network', 
         message: 'Failed to connect to air quality service' 
       });
     }
+    
     setLoading(false);
+    console.log('🏁 fetchAirQuality completed');
   };
 
   const handleHeatmapToggle = (heatmapId) => {
