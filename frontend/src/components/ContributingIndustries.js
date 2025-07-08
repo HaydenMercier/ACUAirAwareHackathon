@@ -112,7 +112,7 @@ const ContributingIndustries = () => {
       name: 'Energy Sector',
       icon: '⚡',
       image: '🏭',
-      description: 'The energy sector stands as the single largest contributor to global air pollution, accounting for approximately 75% of worldwide greenhouse gas emissions. Coal-fired power plants represent the most significant source within this sector, burning over 8 billion tons of coal annually and releasing massive quantities of sulfur dioxide (SO₂), nitrogen oxides (NOₓ), and fine particulate matter (PM2.5 and PM10) directly into the atmosphere. These emissions create a cascade of environmental problems, contributing to smog formation in urban areas, acid rain that damages ecosystems and infrastructure, and severe respiratory health issues affecting millions of people globally.\n The combustion process in coal plants also releases mercury, a potent neurotoxin that bioaccumulates in food chains and poses particular risks to developing children. Natural gas facilities, while producing roughly half the CO₂ emissions of coal plants, still contribute significantly to atmospheric pollution through methane leaks during extraction and transport, with methane being 28 times more potent as a greenhouse gas than carbon dioxide over a 100-year period. The energy sector also encompasses oil refineries, which process crude oil into various petroleum products while releasing volatile organic compounds (VOCs), benzene, and other toxic substances that contribute to ground-level ozone formation and pose serious carcinogenic risks to nearby communities.',
+      description: 'The energy sector is the biggest source of air pollution responsible for 75% of all greenhouse gas emissions. Coal power plants contribute the most, burning over 8 billion tons of coal every year, pumping out sulfur dioxide, nitrogen oxides, and tiny particles that we breathe in. This pollution causes smog in cities, acid rain, and serious breathing problems for millions of people. Coal plants also release mercury, a toxic metal that can damage children\'s brain development. Natural gas plants are cleaner than coal but can still cause problems through methane leaks during drilling and transport, methane traps 28 times more heat than carbon dioxide. Oil refineries also release chemicals like benzene and other compounds that create smog and increase the risk of cancer in nearby communities.',
       facts: [
         'Accounts for 75% of global greenhouse gas emissions',
         'Coal plants emit 2.2 billion tons of CO₂ annually',
@@ -124,7 +124,7 @@ const ContributingIndustries = () => {
       name: 'Transportation',
       icon: '🚗',
       image: '🛣️',
-      description: 'The transportation sector represents a critical source of air pollution, contributing approximately 16% of global greenhouse gas emissions while creating concentrated pollution hotspots in urban environments worldwide. Road vehicles, including cars, trucks, buses, and motorcycles, burn fossil fuels in internal combustion engines that release not only carbon dioxide but also nitrogen oxides, carbon monoxide, and various hydrocarbons into the atmosphere. Diesel vehicles pose particularly severe health risks, emitting fine particulate matter (PM2.5) that penetrates deep into lung tissue and enters the bloodstream, causing cardiovascular disease, stroke, and lung cancer. Heavy-duty diesel trucks and buses emit up to 40 times more nitrogen oxides than gasoline vehicles, contributing significantly to urban smog formation and respiratory ailments in densely populated areas. Aviation represents a rapidly growing source of emissions, with aircraft releasing pollutants directly into the upper atmosphere where they have enhanced warming effects, while also contributing to contrail formation that affects regional climate patterns. The shipping industry, responsible for transporting 90% of global trade, burns heavy fuel oil that contains high sulfur content, releasing sulfur dioxide and particulate matter that affects coastal air quality and contributes to ocean acidification through atmospheric deposition.',
+      description: 'Transportation accounts for 16% of global air pollution, especially cars, trucks, buses, and motorcycles. When these vehicles burn gasoline or diesel, they release carbon dioxide, nitrogen oxides, carbon monoxide, and other harmful chemicals into the air we breathe. Diesel vehicles are especially bad as they produce tiny particles that penetrate our lungs, causing heart disease, strokes, and lung cancer. Diesel trucks and buses produce 40 times more nitrogen oxides than regular cars, which is why city air is often so polluted. Planes are also a problem too, releasing pollution high in the atmosphere where it has a stronger impact on the greenhouse effect. Ships that carry goods around the world burn dirty fuel oil that contains lots of sulfur, creating pollution that affects coastal cities and makes the ocean more acidic.',
       facts: [
         'Road transport produces 12% of global CO₂ emissions',
         'Diesel vehicles emit 40x more NOₓ than gasoline cars',
@@ -136,7 +136,7 @@ const ContributingIndustries = () => {
       name: 'Agriculture & Food Production',
       icon: '🌾',
       image: '🚜',
-      description: 'Agriculture and food production systems contribute approximately 24% of global greenhouse gas emissions through multiple interconnected pathways that extend far beyond the farm gate. Livestock farming represents the largest single source within this sector, with the world\'s 1 billion cattle producing methane through their digestive processes and manure decomposition, releasing approximately 100 million tons of methane annually into the atmosphere. This biological methane production is particularly concerning because methane traps 28 times more heat than carbon dioxide over a 100-year period, making livestock farming a significant driver of climate change. Rice cultivation, which feeds nearly half the world\'s population, occurs primarily in flooded fields that create anaerobic conditions perfect for methane-producing bacteria, contributing roughly 12% of global methane emissions while also requiring intensive water use that strains freshwater resources. The widespread application of nitrogen-based fertilizers releases nitrous oxide (N₂O), a greenhouse gas that is 300 times more potent than carbon dioxide and also contributes to ozone layer depletion. Modern industrial agriculture relies heavily on synthetic pesticides and herbicides that volatilize into the atmosphere, contaminating air and water resources while harming beneficial insects and pollinators essential for ecosystem health. Additionally, the conversion of forests and grasslands to agricultural use releases massive amounts of stored carbon while eliminating natural carbon sinks, with food production being responsible for approximately 80% of global deforestation.',
+      description: 'Farming and food production create 24% of global air pollution. The biggest contributor comes from livestock, over 1 billion cows produce methane when they digest and excrete food. This methane traps huge amounts of heat, making cattle farming a major cause of global warming. Rice farming also produces methane because rice grows in flooded fields where bacteria create this gas. Farmers use nitrogen fertilisers that release nitrous oxide. Pesticides and herbicides used on crops evaporate into the air, polluting both air and water while killing natural wildlife. When forests are cleared to create farmland, carbon stored in trees gets released into the atmosphere, sadly, food production causes 80% of deforestation worldwide.',
       facts: [
         'Livestock produces 14.5% of global greenhouse gases',
         'Agriculture uses 70% of global freshwater',
@@ -148,7 +148,7 @@ const ContributingIndustries = () => {
       name: 'Industrial Manufacturing',
       icon: '🏭',
       image: '⚙️',
-      description: 'Industrial manufacturing represents a massive source of air pollution, accounting for approximately 21% of global greenhouse gas emissions while releasing a complex mixture of toxic substances that threaten both environmental and human health. Steel production stands as one of the most polluting industrial processes, generating 7% of global CO₂ emissions through the combustion of coking coal and the chemical reduction of iron ore, while also releasing sulfur dioxide, nitrogen oxides, and particulate matter that create severe air quality problems in steel-producing regions. The industry consumes approximately 20% of global energy and produces over 2.6 billion tons of CO₂ annually, with each ton of steel requiring 1.4 tons of coal and generating significant quantities of toxic slag and dust. Cement manufacturing presents unique challenges as it releases CO₂ through both fuel combustion and the chemical decomposition of limestone (calcium carbonate), making it responsible for approximately 8% of global emissions while producing alkaline dust that affects respiratory health in surrounding communities. Chemical manufacturing facilities emit an extensive array of volatile organic compounds (VOCs), including benzene, toluene, and formaldehyde, which contribute to ground-level ozone formation and pose serious carcinogenic risks to workers and nearby residents. Aluminum smelting requires enormous amounts of electricity, typically generated from fossil fuels, while also releasing perfluorocarbons (PFCs) that are among the most potent greenhouse gases known, with some having atmospheric lifetimes exceeding 10,000 years and global warming potentials thousands of times greater than CO₂.',
+      description: 'Manufacturing industries produce 21% of global air pollution by making products all around us. Steel production is one of the worst polluters, creating 7% of all carbon dioxide emissions because it requires the addition of coke and burning huge amounts of coal to melt iron ore. Making one ton of steel needs 1.4 tons of coal and releases toxic dust and gases that make people sick in steel-making areas. Cement production is also a major problem because it releases carbon dioxide both from burning fuel and from the chemical process of breaking down limestone. Chemical factories release many toxic compounds including benzene and formaldehyde, which can cause cancer and create smog. Making aluminum requires massive amounts of electricity and releases some of the most powerful greenhouse gases, some of which remain in the atmosphere for over 10,000 years and trap huge amounts of heat, contributing to global warming.',
       facts: [
         'Steel industry produces 2.6 billion tons of CO₂ annually',
         'Cement production accounts for 8% of global emissions',
@@ -160,7 +160,7 @@ const ContributingIndustries = () => {
       name: 'Waste Management & Landfills',
       icon: '🗑️',
       image: '🏗️',
-      description: 'Waste management and landfill operations contribute approximately 5% of global greenhouse gas emissions while creating severe localized air quality problems that disproportionately affect low-income communities and developing nations. Modern sanitary landfills generate methane as organic waste decomposes in anaerobic conditions, with the world\'s landfills producing roughly 11% of global methane emissions, equivalent to approximately 1.6 billion tons of CO₂. This methane production continues for decades after waste disposal, making landfills long-term sources of greenhouse gas emissions that require active management and monitoring systems. Waste incineration facilities, while reducing waste volume by up to 90%, release a cocktail of toxic substances including dioxins and furans (among the most toxic compounds known to science), heavy metals like mercury and lead, and fine particulate matter that can travel long distances and accumulate in food chains. These facilities disproportionately impact environmental justice communities, as they are often located in areas with higher concentrations of minority and low-income residents. Open burning of waste, practiced by an estimated 2.6 billion people globally who lack access to proper waste collection services, produces highly toxic smoke containing polycyclic aromatic hydrocarbons, dioxins, and other carcinogenic compounds that cause immediate respiratory distress and long-term health problems. Even recycling facilities contribute to air pollution through the emission of plastic microparticles, chemical vapors from processing operations, and dust from paper and cardboard handling, highlighting the need for comprehensive waste reduction strategies that prioritize prevention over end-of-pipe solutions.',
+      description: 'Waste management creates 5% of global air pollution, but the impact on local communities can be severe. Landfills produce methane gas as garbage rots, contributing 11% of all methane emissions worldwide. This gas production continues for decades after trash is buried, making landfills long-term pollution sources. Waste incinerators burn trash to reduce volume but release extremely toxic chemicals including dioxins (some of the most poisonous substances known), mercury, lead, and tiny particles that can travel far and build up in our food. These facilities are often built in poor neighborhoods, unfairly exposing these communities to more pollution. Around 2.6 billion people worldwide burn their trash in the open because they don\'t have proper waste collection, creating toxic smoke that causes immediate breathing problems and long-term health issues. Even recycling facilities create pollution through plastic particles, chemical vapours, and produce less air pollution than garbage dumps, but this shows we need to focus more on reducing waste rather than just managing it,.',
       facts: [
         'Landfills produce 11% of global methane emissions',
         'Waste sector emits 1.6 billion tons of CO₂ equivalent',
@@ -192,6 +192,41 @@ const ContributingIndustries = () => {
 
             <div className="industry-content">
               <div className="industry-description">
+                {industry.name === 'Energy Sector' && (
+                  <img 
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAT-n43ar2rLcEVTdbr0VI0WCtRozW-VFgJ9SR8VFov9PJjx86pZ43gT9HLZJvLvxk2v8&usqp=CAU" 
+                    alt="Coal power plant with smokestacks" 
+                    className="industry-inline-image"
+                  />
+                )}
+                {industry.name === 'Agriculture & Food Production' && (
+                  <img 
+                    src="https://media02.stockfood.com/largepreviews/MjIwNzIwMjYzNQ==/71200085-A-herd-of-cows-standing-in-a-grass-field-under-a-cloudy-sky-with-a-silhouette-of-the-Rocky-mountains-in-the.jpg" 
+                    alt="Herd of cows in grass field" 
+                    className="industry-inline-image"
+                  />
+                )}
+                {industry.name === 'Transportation' && (
+                  <img 
+                    src="https://www.ox.ac.uk/sites/files/oxford/field/field_image_main/shutterstock_554001493.jpg" 
+                    alt="Heavy traffic with vehicle emissions" 
+                    className="industry-inline-image"
+                  />
+                )}
+                {industry.name === 'Industrial Manufacturing' && (
+                  <img 
+                    src="https://beltmag.com/wp-content/uploads/2018/04/F1013STEEL_BILLBOARD_21545729-e1522925068228.jpg" 
+                    alt="Steel manufacturing plant with smokestacks" 
+                    className="industry-inline-image"
+                  />
+                )}
+                {industry.name === 'Waste Management & Landfills' && (
+                  <img 
+                    src="https://images.ctfassets.net/cxgxgstp8r5d/3391602421c90298e02043008e5b7900/d6e8ab2af495105725dcb75f885d82c9/9_2_14_Andrea_Mexico_trash_500_375_s_c1_c_c.jpg" 
+                    alt="Open waste burning and landfill" 
+                    className="industry-inline-image"
+                  />
+                )}
                 {industry.description.split('. ').reduce((paragraphs, sentence, index, array) => {
                   const sentenceWithPeriod = sentence + (index < array.length - 1 ? '.' : '');
                   const paragraphIndex = Math.floor(index / 3);
