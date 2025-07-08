@@ -330,6 +330,14 @@ main {
   opacity: 0.9;
 }
 
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
 .enter-app-btn {
   background: white;
   color: #667eea;
@@ -344,6 +352,24 @@ main {
 
 .enter-app-btn:hover {
   transform: translateY(-2px);
+}
+
+.simulator-btn {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.simulator-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
 
 .industries-section {
@@ -415,6 +441,42 @@ main {
   font-size: 2.5em;
   margin-bottom: 10px;
   color: #ffeb3b;
+}
+
+/* Quick Facts Section on Home Page */
+.quick-facts-section {
+  max-width: 800px;
+  margin: 60px auto 0;
+  display: flex;
+  justify-content: center;
+}
+
+.quick-facts-section .education-panel {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 30px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 600px;
+}
+
+.quick-facts-section .education-panel h3 {
+  color: #ffeb3b;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.quick-facts-section .education-panel ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.quick-facts-section .education-panel li {
+  margin-bottom: 12px;
+  font-size: 1em;
+  line-height: 1.6;
+  color: white;
 }
 
 /* Controls Panel */
@@ -1447,4 +1509,94 @@ main {
   .industry-title h2 {
     font-size: 2em;
   }
+}
+
+/* Industrial Zone Markers */
+.zone-marker {
+  background: none;
+  border: none;
+  font-size: 24px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.zone-popup {
+  min-width: 200px;
+}
+
+.zone-popup strong {
+  color: #333;
+  font-size: 1.1em;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.zone-stats {
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+.zone-stats div {
+  margin: 4px 0;
+  font-size: 0.9em;
+  color: #555;
+}
+
+/* Industry Zone Dropdown */
+.toggle-option-container {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.dropdown-btn {
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #666;
+}
+
+.dropdown-btn:hover {
+  background: #f0f0f0;
+}
+
+.zone-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+  min-width: 150px;
+  padding: 5px 0;
+}
+
+.zone-option {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  cursor: pointer;
+  gap: 8px;
+}
+
+.zone-option:hover {
+  background: #f0f0f0;
+}
+
+.zone-emoji {
+  font-size: 14px;
+}
+
+.zone-label {
+  font-size: 13px;
+  color: #333;
 }

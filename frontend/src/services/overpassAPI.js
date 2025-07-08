@@ -12,8 +12,12 @@ class OverpassService {
         way["landuse"="industrial"](around:${radius * 111000},${lat},${lon});
         way["landuse"="quarry"](around:${radius * 111000},${lat},${lon});
         way["landuse"="farmland"](around:${radius * 111000},${lat},${lon});
-        way["place"="city"](around:${radius * 111000},${lat},${lon});
-        way["place"="town"](around:${radius * 111000},${lat},${lon});
+        way["landuse"="residential"](around:${radius * 111000},${lat},${lon});
+        way["landuse"="commercial"](around:${radius * 111000},${lat},${lon});
+        way["landuse"="retail"](around:${radius * 111000},${lat},${lon});
+        way["amenity"="fuel"](around:${radius * 111000},${lat},${lon});
+        node["place"="city"](around:${radius * 111000},${lat},${lon});
+        node["place"="town"](around:${radius * 111000},${lat},${lon});
       );
       out center meta;
     `;
@@ -52,6 +56,10 @@ class OverpassService {
     if (tags.landuse === 'industrial') return 'Industrial Region';
     if (tags.landuse === 'quarry') return 'Mining Region';
     if (tags.landuse === 'farmland') return 'Agricultural Region';
+    if (tags.landuse === 'residential') return 'Residential Area';
+    if (tags.landuse === 'commercial') return 'Commercial District';
+    if (tags.landuse === 'retail') return 'Retail Zone';
+    if (tags.amenity === 'fuel') return 'Fuel Station';
     if (tags.place === 'city' || tags.place === 'town') return 'Urban Center';
     return 'Mixed Development';
   }
@@ -59,7 +67,9 @@ class OverpassService {
   getIndustryType(tags) {
     if (tags.landuse === 'quarry') return 'mining';
     if (tags.landuse === 'farmland') return 'agriculture';
+    if (tags.landuse === 'residential' || tags.landuse === 'commercial' || tags.landuse === 'retail') return 'urban';
     if (tags.place === 'city' || tags.place === 'town') return 'urban';
+    if (tags.amenity === 'fuel') return 'industrial';
     if (tags.landuse === 'industrial') return 'industrial';
     return 'mixed';
   }
@@ -67,7 +77,10 @@ class OverpassService {
   getIndustryIcon(tags) {
     if (tags.landuse === 'quarry') return '⛏';
     if (tags.landuse === 'farmland') return '🌾';
+    if (tags.landuse === 'residential') return '🏘';
+    if (tags.landuse === 'commercial' || tags.landuse === 'retail') return '🏢';
     if (tags.place === 'city' || tags.place === 'town') return '🏙';
+    if (tags.amenity === 'fuel') return '⛽';
     if (tags.landuse === 'industrial') return '🏭';
     return '📍';
   }
@@ -75,7 +88,10 @@ class OverpassService {
   getEmissions(tags) {
     if (tags.landuse === 'quarry') return 'High PM10, Dust';
     if (tags.landuse === 'farmland') return 'NH3, Pesticides';
+    if (tags.landuse === 'residential') return 'Heating, Cooking';
+    if (tags.landuse === 'commercial' || tags.landuse === 'retail') return 'Vehicle Traffic';
     if (tags.amenity === 'fuel') return 'VOCs, NO2';
+    if (tags.place === 'city' || tags.place === 'town') return 'Vehicle Emissions';
     if (tags.industrial) return 'Mixed Pollutants';
     return 'Various Emissions';
   }

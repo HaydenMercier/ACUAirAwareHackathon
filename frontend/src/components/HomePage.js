@@ -2,7 +2,7 @@ import React from 'react';
 import ContactFooter from './ContactFooter';
 import smokestackIcon from '../icons/smokestackiconwhite.png';
 
-const HomePage = ({ onEnterApp }) => {
+const HomePage = ({ onEnterApp, onNavigateSimulator }) => {
   const leadingIndustries = [
     {
       name: 'Oil & Gas',
@@ -55,9 +55,14 @@ const HomePage = ({ onEnterApp }) => {
           <img src={smokestackIcon} alt="SmokeStack" className="hero-main-logo" />
         </div>
         <p className="tagline">Track Industrial Air Pollution Impact</p>
-        <button className="enter-app-btn" onClick={onEnterApp}>
-          Explore Air Quality Data
-        </button>
+        <div className="hero-buttons">
+          <button className="enter-app-btn" onClick={onEnterApp}>
+            Explore Air Quality Data
+          </button>
+          <button className="simulator-btn" onClick={onNavigateSimulator}>
+            🌍 Try Pollution Simulator
+          </button>
+        </div>
       </div>
 
       <div className="industries-section">
@@ -87,6 +92,18 @@ const HomePage = ({ onEnterApp }) => {
         <div className="stat-item">
           <h3>$2.9 trillion</h3>
           <p>Annual economic cost of air pollution</p>
+        </div>
+      </div>
+      
+      <div className="quick-facts-section">
+        <div className="education-panel">
+          <h3>💡 Quick Facts</h3>
+          <ul>
+            <li>PM2.5 particles are 30x smaller than human hair width</li>
+            <li>Oil refineries are major sources of NO2 emissions</li>
+            <li>Chemical plants often release SO2 compounds</li>
+            <li>Wind direction affects pollution dispersion patterns</li>
+          </ul>
         </div>
       </div>
       
