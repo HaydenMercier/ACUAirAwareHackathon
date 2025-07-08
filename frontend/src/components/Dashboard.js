@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import AQILegend from './AQILegend';
 import SearchBar from './SearchBar';
 import geocodingService from '../services/geocoding';
 import correlationService from '../services/correlationService';
+import { convertEUtoUS, getAQILevel, getAQIColor } from '../utils/aqiConverter';
 
-const Dashboard = ({ airQualityData, loading, location, industries, onLocationSelect }) => {
+const Dashboard = ({ airQualityData, loading, location, industries, onLocationSelect, aqiStandard = 'EU' }) => {
   const [locationInfo, setLocationInfo] = useState(null);
   const [correlationData, setCorrelationData] = useState([]);
   
@@ -32,23 +32,12 @@ const Dashboard = ({ airQualityData, loading, location, industries, onLocationSe
     }
   }, [location, industries, airQualityData]);
   
-  const getAQILevel = (aqi) => {
-    if (!aqi) return 'Unknown';
-    if (aqi <= 50) return 'Good';
-    if (aqi <= 100) return 'Moderate';
-    if (aqi <= 150) return 'Unhealthy for Sensitive';
-    if (aqi <= 200) return 'Unhealthy';
-    return 'Very Unhealthy';
+  const getDisplayAQI = () => {
+    if (!airQualityData?.aqi) return null;
+    return aqiStandard === 'US' ? convertEUtoUS(airQualityData.aqi) : airQualityData.aqi;
   };
-
-  const getAQIColor = (aqi) => {
-    if (!aqi) return '#gray';
-    if (aqi <= 50) return '#00e400';
-    if (aqi <= 100) return '#ffff00';
-    if (aqi <= 150) return '#ff7e00';
-    if (aqi <= 200) return '#ff0000';
-    return '#8f3f97';
-  };
+  
+  const displayAqi = getDisplayAQI();
 
 
 
@@ -76,10 +65,11 @@ const Dashboard = ({ airQualityData, loading, location, industries, onLocationSe
         ) : (
           <div>
             <div className="metric-cards">
-              <div className="metric-card" style={{ borderLeft: `4px solid ${getAQIColor(airQualityData?.aqi)}` }}>
-                <h4>AQI</h4>
-                <span className="value">{airQualityData?.aqi || 'N/A'}</span>
-                <span className="level">{getAQILevel(airQualityData?.aqi)}</span>
+              <div className="metric-card" style={{ borderLeft: `4px solid ${getAQIColor(displayAqi, aqiStandard)}` }}>
+                <h4>{aqiStandard} AQI</h4>
+                <span className="value">{displayAqi || 'N/A'}</span>
+                <span className="level">{displayAqi ? getAQILevel(displayAqi, aqiStandard) : 'Unknown'}</span>
+                <div className="aqi-standard-note">{aqiStandard === 'EU' ? 'European Standard (1-5)' : 'US Standard (0-500)'}</div>
               </div>
               <div className="metric-card">
                 <h4>PM2.5</h4>
@@ -102,6 +92,11 @@ const Dashboard = ({ airQualityData, loading, location, industries, onLocationSe
                 📍 Using nearest available data ({airQualityData.distance?.toFixed(1)}km away)
               </div>
             )}
+            {airQualityData?.source === 'interpolated' && (
+              <div className="data-notice interpolated">
+                📊 Interpolated from {airQualityData.sensorCount} sensors (avg {airQualityData.avgDistance?.toFixed(1)}km away)
+              </div>
+            )}
             {airQualityData?.source === 'unavailable' && (
               <div className="data-notice unavailable">
                 ⚠️ No air quality data available for this region
@@ -111,31 +106,38 @@ const Dashboard = ({ airQualityData, loading, location, industries, onLocationSe
         )}
       </div>
 
-      <div className="industry-panel">
-        <h3>🏭 Industry Correlation</h3>
-        <div className="correlation-list">
-          {correlationData.map((item, index) => (
-            <div key={index} className="correlation-item">
-              <div className="industry-name">{item.industry}</div>
-              <div className="impact">{item.impact}</div>
-              <div className="correlation">{item.correlation} correlation</div>
-              <div className="distance">{item.distance} away</div>
-            </div>
-          ))}
+
+
+
+      
+      <div className="metrics-guide-panel">
+        <h3>📊 Understanding Air Quality Metrics</h3>
+        <div className="metric-explanation">
+          <div className="metric-item">
+            <strong>AQI (Air Quality Index):</strong> Overall air quality rating from 1-5 (EU) or 0-500 (US). Higher values indicate worse air quality.
+          </div>
+          <div className="metric-item">
+            <strong>PM2.5:</strong> Fine particles ≤2.5μm that penetrate deep into lungs. Major health concern from vehicles and industry.
+          </div>
+          <div className="metric-item">
+            <strong>NO2:</strong> Nitrogen dioxide from combustion. Causes respiratory issues and contributes to smog formation.
+          </div>
+          <div className="metric-item">
+            <strong>SO2:</strong> Sulfur dioxide from fossil fuel burning. Triggers asthma and forms acid rain.
+          </div>
+        </div>
+        <div className="usage-guide">
+          <h4>💡 How to Use This Data:</h4>
+          <ul>
+            <li>Check AQI before outdoor activities - avoid exercise when levels are high</li>
+            <li>Monitor PM2.5 if you have respiratory conditions</li>
+            <li>Use industry correlation data to identify pollution sources near you</li>
+            <li>Compare different locations to make informed living decisions</li>
+          </ul>
         </div>
       </div>
-
-      <AQILegend />
       
-      <div className="education-panel">
-        <h3>💡 Quick Facts</h3>
-        <ul>
-          <li>PM2.5 particles are 30x smaller than human hair width</li>
-          <li>Oil refineries are major sources of NO2 emissions</li>
-          <li>Chemical plants often release SO2 compounds</li>
-          <li>Wind direction affects pollution dispersion patterns</li>
-        </ul>
-      </div>
+
     </div>
   );
 };

@@ -76,11 +76,26 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
 
   const getAQIColor = (aqi) => {
     if (!aqi) return '#gray';
-    if (aqi <= 50) return '#00e400';
-    if (aqi <= 100) return '#ffff00';
-    if (aqi <= 150) return '#ff7e00';
-    if (aqi <= 200) return '#ff0000';
-    return '#8f3f97';
+    switch(aqi) {
+      case 1: return '#00e400';
+      case 2: return '#ffff00';
+      case 3: return '#ff7e00';
+      case 4: return '#ff0000';
+      case 5: return '#8f3f97';
+      default: return '#gray';
+    }
+  };
+  
+  const getAQILevel = (aqi) => {
+    if (!aqi) return 'Unknown';
+    switch(aqi) {
+      case 1: return 'Very Good';
+      case 2: return 'Good';
+      case 3: return 'Fair';
+      case 4: return 'Poor';
+      case 5: return 'Very Poor';
+      default: return 'Unknown';
+    }
   };
 
 
@@ -125,7 +140,8 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
               </div>
               
               <div className="aqi-info">
-                <strong>Air Quality Index: {airQualityData?.aqi || 'Loading...'}</strong>
+                <strong>EU Air Quality Index: {airQualityData?.aqi || 'Loading...'}</strong>
+                <div className="aqi-level">{getAQILevel(airQualityData?.aqi)}</div>
                 <div className="aqi-indicator" style={{ 
                   width: '100%', 
                   height: '8px', 
@@ -139,6 +155,7 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
                     <div>NO2: {airQualityData.components.no2?.toFixed(1)} μg/m³</div>
                   </div>
                 )}
+                <div className="aqi-standard-small">European Standard (1-5)</div>
               </div>
               
               {getTopIndustries().length > 0 && (

@@ -57,8 +57,9 @@ class AirQualityService {
       return result;
     }
 
-    // Search in expanding radius for nearest available data
-    const searchRadii = [0.1, 0.5, 1.0, 2.0, 5.0]; // degrees
+    // Collect multiple nearby sensors for inverse distance weighting
+    const sensors = [];
+    const searchRadii = [0.1, 0.5, 1.0, 2.0]; // degrees
     
     for (const radius of searchRadii) {
       const nearbyPoints = this.generateNearbyPoints(lat, lon, radius);
@@ -67,23 +68,45 @@ class AirQualityService {
         try {
           const response = await axios.get(`${this.baseUrl}/current`, {
             params: { lat: point.lat, lon: point.lon, appid: this.apiKey },
-            timeout: 5000
+            timeout: 3000
           });
           
           if (response.data?.list?.length > 0) {
+            const distance = this.calculateDistance(lat, lon, point.lat, point.lon);
             const data = this.formatAirQualityData(response.data);
-            data.source = 'nearest';
-            data.distance = this.calculateDistance(lat, lon, point.lat, point.lon);
-            console.log(`Found AQI data ${data.distance.toFixed(1)}km away`);
-            return data;
+            
+            sensors.push({
+              ...data,
+              distance,
+              lat: point.lat,
+              lon: point.lon
+            });
+            
+            // Stop searching if we have enough sensors
+            if (sensors.length >= 4) break;
           }
         } catch (error) {
-          continue; // Try next point
+          continue;
         }
       }
+      
+      if (sensors.length >= 2) break; // Enough for interpolation
     }
     
-    return this.getUnavailableData();
+    if (sensors.length === 0) {
+      return this.getUnavailableData();
+    }
+    
+    if (sensors.length === 1) {
+      // Single sensor - return as nearest
+      const result = sensors[0];
+      result.source = 'nearest';
+      console.log(`Found AQI data ${result.distance.toFixed(1)}km away`);
+      return result;
+    }
+    
+    // Multiple sensors - use inverse distance weighting
+    return this.interpolateAQIData(lat, lon, sensors);
   }
   
   generateNearbyPoints(lat, lon, radius) {
@@ -110,6 +133,56 @@ class AirQualityService {
               Math.sin(dLon/2) * Math.sin(dLon/2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     return R * c;
+  }
+  
+  interpolateAQIData(targetLat, targetLon, sensors) {
+    // Inverse Distance Weighting (IDW) interpolation
+    const power = 2; // IDW power parameter
+    let totalWeight = 0;
+    let weightedValues = {
+      aqi: 0,
+      pm2_5: 0,
+      pm10: 0,
+      no2: 0,
+      so2: 0,
+      co: 0,
+      o3: 0
+    };
+    
+    sensors.forEach(sensor => {
+      const distance = Math.max(sensor.distance, 0.1); // Avoid division by zero
+      const weight = 1 / Math.pow(distance, power);
+      totalWeight += weight;
+      
+      // Weight each component
+      if (sensor.aqi) weightedValues.aqi += sensor.aqi * weight;
+      if (sensor.components.pm2_5) weightedValues.pm2_5 += sensor.components.pm2_5 * weight;
+      if (sensor.components.pm10) weightedValues.pm10 += sensor.components.pm10 * weight;
+      if (sensor.components.no2) weightedValues.no2 += sensor.components.no2 * weight;
+      if (sensor.components.so2) weightedValues.so2 += sensor.components.so2 * weight;
+      if (sensor.components.co) weightedValues.co += sensor.components.co * weight;
+      if (sensor.components.o3) weightedValues.o3 += sensor.components.o3 * weight;
+    });
+    
+    // Normalize by total weight
+    const interpolatedData = {
+      aqi: Math.round(weightedValues.aqi / totalWeight),
+      components: {
+        pm2_5: weightedValues.pm2_5 / totalWeight,
+        pm10: weightedValues.pm10 / totalWeight,
+        no2: weightedValues.no2 / totalWeight,
+        so2: weightedValues.so2 / totalWeight,
+        co: weightedValues.co / totalWeight,
+        o3: weightedValues.o3 / totalWeight
+      },
+      timestamp: new Date(),
+      source: 'interpolated',
+      sensorCount: sensors.length,
+      avgDistance: sensors.reduce((sum, s) => sum + s.distance, 0) / sensors.length
+    };
+    
+    console.log(`Interpolated AQI from ${sensors.length} sensors, avg distance: ${interpolatedData.avgDistance.toFixed(1)}km`);
+    return interpolatedData;
   }
   
   getUnavailableData() {

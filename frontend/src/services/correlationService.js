@@ -24,7 +24,7 @@ class CorrelationService {
     })
     .filter(item => parseFloat(item.correlation) > 10) // Only show meaningful correlations
     .sort((a, b) => parseFloat(b.correlation) - parseFloat(a.correlation))
-    .slice(0, 3); // Top 3
+    .slice(0, 5); // Top 5
 
     return correlations;
   }

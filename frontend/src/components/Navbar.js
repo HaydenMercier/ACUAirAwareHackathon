@@ -1,17 +1,19 @@
 import React from 'react';
+import smokestackIcon from '../icons/smokestackiconwhitenotext.png';
 
 const Navbar = ({ onNavigateHome, onNavigateMap, onNavigateIndustries }) => {
   return (
-    <nav className="navbar">
+    <nav className="header-nav">
       <div className="nav-content">
-        <div className="nav-brand" onClick={onNavigateHome}>
-          🏭 Smokestack
+        <div className="nav-logo" onClick={onNavigateHome}>
+          <img src={smokestackIcon} alt="SmokeStack" className="nav-icon" />
+          <span className="nav-title">SmokeStack</span>
         </div>
         
-        <div className="nav-links">
-          <button onClick={onNavigateHome} className="nav-link">Home</button>
-          <button onClick={onNavigateMap} className="nav-link">Map</button>
-          <button onClick={onNavigateIndustries} className="nav-link">Industries</button>
+        <div className="nav-buttons">
+          <button onClick={onNavigateHome} className="nav-btn">Home</button>
+          <button onClick={onNavigateMap} className="nav-btn">Map</button>
+          <button onClick={onNavigateIndustries} className="nav-btn">Industries</button>
         </div>
       </div>
     </nav>

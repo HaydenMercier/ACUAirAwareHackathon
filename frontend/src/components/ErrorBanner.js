@@ -8,6 +8,7 @@ const ErrorBanner = ({ error, onDismiss }) => {
       case 'network': return '🌐';
       case 'timeout': return '⏱️';
       case 'api_key': return '🔑';
+      case 'rate_limit': return '🚫';
       case 'not_found': return '📍';
       default: return '⚠️';
     }
