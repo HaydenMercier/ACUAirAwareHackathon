@@ -37,7 +37,7 @@ const ContributingIndustries = () => {
       health: 'Severe respiratory and eye irritant, can cause chemical burns'
     },
     'H₂S': {
-      name: 'Hydrogen Sulfide',
+      name: 'Hydrogen Sulphide',
       atmospheric: 'Contributes to acid rain and atmospheric sulfur compounds',
       health: 'Highly toxic, causes eye irritation, respiratory problems, and death at high levels'
     },
@@ -80,6 +80,21 @@ const ContributingIndustries = () => {
       name: 'Perfluorocarbons',
       atmospheric: 'Extremely potent greenhouse gases with long atmospheric lifetimes',
       health: 'Generally low toxicity but some linked to cancer and liver damage'
+    },
+    'Pesticides': {
+      name: 'Pesticides',
+      atmospheric: 'Drift into atmosphere, contaminate water sources, harm beneficial insects',
+      health: 'Linked to cancer, neurological disorders, reproductive issues, and endocrine disruption'
+    },
+    'Heavy Metals': {
+      name: 'Heavy Metals',
+      atmospheric: 'Persist in environment, bioaccumulate in food chains, long-range transport',
+      health: 'Cause organ damage, developmental disorders, cancer, and neurological problems'
+    },
+    'Hydrocarbons': {
+      name: 'Hydrocarbons',
+      atmospheric: 'React with NOₓ to form ground-level ozone and photochemical smog',
+      health: 'Cause respiratory irritation, some are carcinogenic and affect central nervous system'
     }
   };
 
@@ -97,7 +112,7 @@ const ContributingIndustries = () => {
       name: 'Energy Sector',
       icon: '⚡',
       image: '🏭',
-      description: 'The energy sector is the largest contributor to global air pollution, responsible for approximately 75% of greenhouse gas emissions worldwide. Coal-fired power plants release sulfur dioxide (SO₂), nitrogen oxides (NOₓ), and particulate matter (PM2.5 and PM10) into the atmosphere. These pollutants contribute to smog formation, acid rain, and respiratory health issues. Natural gas facilities, while cleaner than coal, still emit methane and carbon dioxide. The sector also includes oil refineries that release volatile organic compounds (VOCs) and benzene.',
+      description: 'The energy sector is the biggest source of air pollution responsible for 75% of all greenhouse gas emissions. Coal power plants contribute the most, burning over 8 billion tons of coal every year, pumping out sulfur dioxide, nitrogen oxides, and tiny particles that we breathe in. This pollution causes smog in cities, acid rain, and serious breathing problems for millions of people. Coal plants also release mercury, a toxic metal that can damage children\'s brain development. Natural gas plants are cleaner than coal but can still cause problems through methane leaks during drilling and transport, methane traps 28 times more heat than carbon dioxide. Oil refineries also release chemicals like benzene and other compounds that create smog and increase the risk of cancer in nearby communities.',
       facts: [
         'Accounts for 75% of global greenhouse gas emissions',
         'Coal plants emit 2.2 billion tons of CO₂ annually',
@@ -109,7 +124,7 @@ const ContributingIndustries = () => {
       name: 'Transportation',
       icon: '🚗',
       image: '🛣️',
-      description: 'Transportation, particularly road vehicles, contributes approximately 16% of global greenhouse gas emissions. Cars, trucks, buses, and motorcycles burn fossil fuels, releasing carbon dioxide, nitrogen oxides, and particulate matter. Diesel vehicles are particularly problematic, emitting fine particulates that penetrate deep into lungs. Aviation and shipping also contribute significantly, with aircraft emissions affecting air quality at ground level and cruise altitude. Urban areas experience the highest concentration of transportation-related pollution.',
+      description: 'Transportation accounts for 16% of global air pollution, especially cars, trucks, buses, and motorcycles. When these vehicles burn gasoline or diesel, they release carbon dioxide, nitrogen oxides, carbon monoxide, and other harmful chemicals into the air we breathe. Diesel vehicles are especially bad as they produce tiny particles that penetrate our lungs, causing heart disease, strokes, and lung cancer. Diesel trucks and buses produce 40 times more nitrogen oxides than regular cars, which is why city air is often so polluted. Planes are also a problem too, releasing pollution high in the atmosphere where it has a stronger impact on the greenhouse effect. Ships that carry goods around the world burn dirty fuel oil that contains lots of sulfur, creating pollution that affects coastal cities and makes the ocean more acidic.',
       facts: [
         'Road transport produces 12% of global CO₂ emissions',
         'Diesel vehicles emit 40x more NOₓ than gasoline cars',
@@ -121,7 +136,7 @@ const ContributingIndustries = () => {
       name: 'Agriculture & Food Production',
       icon: '🌾',
       image: '🚜',
-      description: 'Agriculture contributes about 24% of global greenhouse gas emissions through various pathways. Livestock farming produces methane through digestion and manure decomposition. Rice cultivation in flooded fields generates significant methane emissions. Fertilizer use releases nitrous oxide (N₂O), a potent greenhouse gas. Agricultural machinery and transportation of food products burn fossil fuels. Deforestation for farmland reduces carbon sequestration capacity while releasing stored carbon.',
+      description: 'Farming and food production create 24% of global air pollution. The biggest contributor comes from livestock, over 1 billion cows produce methane when they digest and excrete food. This methane traps huge amounts of heat, making cattle farming a major cause of global warming. Rice farming also produces methane because rice grows in flooded fields where bacteria create this gas. Farmers use nitrogen fertilisers that release nitrous oxide. Pesticides and herbicides used on crops evaporate into the air, polluting both air and water while killing natural wildlife. When forests are cleared to create farmland, carbon stored in trees gets released into the atmosphere, sadly, food production causes 80% of deforestation worldwide.',
       facts: [
         'Livestock produces 14.5% of global greenhouse gases',
         'Agriculture uses 70% of global freshwater',
@@ -133,7 +148,7 @@ const ContributingIndustries = () => {
       name: 'Industrial Manufacturing',
       icon: '🏭',
       image: '⚙️',
-      description: 'Industrial manufacturing accounts for approximately 21% of global greenhouse gas emissions. Steel production alone generates 7% of global CO₂ emissions through coal combustion and chemical processes. Cement manufacturing releases CO₂ both from fuel combustion and limestone decomposition. Chemical plants emit various toxic compounds including volatile organic compounds (VOCs), sulfur compounds, and heavy metals. Aluminum smelting requires enormous energy input and releases perfluorocarbons (PFCs).',
+      description: 'Manufacturing industries produce 21% of global air pollution by making products all around us. Steel production is one of the worst polluters, creating 7% of all carbon dioxide emissions because it requires the addition of coke and burning huge amounts of coal to melt iron ore. Making one ton of steel needs 1.4 tons of coal and releases toxic dust and gases that make people sick in steel-making areas. Cement production is also a major problem because it releases carbon dioxide both from burning fuel and from the chemical process of breaking down limestone. Chemical factories release many toxic compounds including benzene and formaldehyde, which can cause cancer and create smog. Making aluminum requires massive amounts of electricity and releases some of the most powerful greenhouse gases, some of which remain in the atmosphere for over 10,000 years and trap huge amounts of heat, contributing to global warming.',
       facts: [
         'Steel industry produces 2.6 billion tons of CO₂ annually',
         'Cement production accounts for 8% of global emissions',
@@ -145,7 +160,7 @@ const ContributingIndustries = () => {
       name: 'Waste Management & Landfills',
       icon: '🗑️',
       image: '🏗️',
-      description: 'Waste management contributes approximately 5% of global greenhouse gas emissions, but has significant local air quality impacts. Landfills generate methane as organic waste decomposes anaerobically. Waste incineration releases dioxins, furans, heavy metals, and particulate matter. Open burning of waste, common in developing countries, produces toxic smoke containing numerous harmful compounds. Recycling facilities can emit dust and chemical vapors during processing.',
+      description: 'Waste management creates 5% of global air pollution, but the impact on local communities can be severe. Landfills produce methane gas as garbage rots, contributing 11% of all methane emissions worldwide. This gas production continues for decades after trash is buried, making landfills long-term pollution sources. Waste incinerators burn trash to reduce volume but release extremely toxic chemicals including dioxins (some of the most poisonous substances known), mercury, lead, and tiny particles that can travel far and build up in our food. These facilities are often built in poor neighborhoods, unfairly exposing these communities to more pollution. Around 2.6 billion people worldwide burn their trash in the open because they don\'t have proper waste collection, creating toxic smoke that causes immediate breathing problems and long-term health issues. Even recycling facilities create pollution through plastic particles, chemical vapours, and produce less air pollution than garbage dumps, but this shows we need to focus more on reducing waste rather than just managing it,.',
       facts: [
         'Landfills produce 11% of global methane emissions',
         'Waste sector emits 1.6 billion tons of CO₂ equivalent',
@@ -158,7 +173,7 @@ const ContributingIndustries = () => {
   return (
     <div className="contributing-industries-page">
       <div className="industries-hero">
-        <h1>Industries Contributing to Global Air Pollution</h1>
+        <h1>Top 5 Contributing Industries to Global Air Pollution</h1>
         <p className="hero-subtitle">Understanding the major sources of air pollution and their environmental impact</p>
       </div>
 
@@ -166,10 +181,6 @@ const ContributingIndustries = () => {
         {industries.map((industry, index) => (
           <section key={index} className="industry-section">
             <div className="industry-header">
-              <div className="industry-visual">
-                <span className="industry-main-icon">{industry.icon}</span>
-                <span className="industry-image">{industry.image}</span>
-              </div>
               <div className="industry-title">
                 <h2>{industry.name}</h2>
               </div>
@@ -177,7 +188,50 @@ const ContributingIndustries = () => {
 
             <div className="industry-content">
               <div className="industry-description">
-                <p>{industry.description}</p>
+                {industry.name === 'Energy Sector' && (
+                  <img 
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAT-n43ar2rLcEVTdbr0VI0WCtRozW-VFgJ9SR8VFov9PJjx86pZ43gT9HLZJvLvxk2v8&usqp=CAU" 
+                    alt="Coal power plant with smokestacks" 
+                    className="industry-inline-image"
+                  />
+                )}
+                {industry.name === 'Agriculture & Food Production' && (
+                  <img 
+                    src="https://media02.stockfood.com/largepreviews/MjIwNzIwMjYzNQ==/71200085-A-herd-of-cows-standing-in-a-grass-field-under-a-cloudy-sky-with-a-silhouette-of-the-Rocky-mountains-in-the.jpg" 
+                    alt="Herd of cows in grass field" 
+                    className="industry-inline-image"
+                  />
+                )}
+                {industry.name === 'Transportation' && (
+                  <img 
+                    src="https://www.ox.ac.uk/sites/files/oxford/field/field_image_main/shutterstock_554001493.jpg" 
+                    alt="Heavy traffic with vehicle emissions" 
+                    className="industry-inline-image"
+                  />
+                )}
+                {industry.name === 'Industrial Manufacturing' && (
+                  <img 
+                    src="https://beltmag.com/wp-content/uploads/2018/04/F1013STEEL_BILLBOARD_21545729-e1522925068228.jpg" 
+                    alt="Steel manufacturing plant with smokestacks" 
+                    className="industry-inline-image"
+                  />
+                )}
+                {industry.name === 'Waste Management & Landfills' && (
+                  <img 
+                    src="https://images.ctfassets.net/cxgxgstp8r5d/3391602421c90298e02043008e5b7900/d6e8ab2af495105725dcb75f885d82c9/9_2_14_Andrea_Mexico_trash_500_375_s_c1_c_c.jpg" 
+                    alt="Open waste burning and landfill" 
+                    className="industry-inline-image"
+                  />
+                )}
+                {industry.description.split('. ').reduce((paragraphs, sentence, index, array) => {
+                  const sentenceWithPeriod = sentence + (index < array.length - 1 ? '.' : '');
+                  const paragraphIndex = Math.floor(index / 3);
+                  if (!paragraphs[paragraphIndex]) paragraphs[paragraphIndex] = [];
+                  paragraphs[paragraphIndex].push(sentenceWithPeriod);
+                  return paragraphs;
+                }, []).map((paragraph, pIndex) => (
+                  <p key={pIndex}>{paragraph.join(' ')}</p>
+                ))}
               </div>
 
               <div className="industry-widgets">
@@ -209,6 +263,30 @@ const ContributingIndustries = () => {
             </div>
           </section>
         ))}
+      </div>
+
+      <div className="action-section">
+        <h2>Take Action for Cleaner Air</h2>
+        <div className="action-grid">
+          <div className="action-card">
+            <h3>Individual Actions</h3>
+            <ul>
+              <li>Use public transportation or electric vehicles</li>
+              <li>Reduce energy consumption at home</li>
+              <li>Choose renewable energy sources</li>
+              <li>Support sustainable agriculture</li>
+            </ul>
+          </div>
+          <div className="action-card">
+            <h3>Policy Support</h3>
+            <ul>
+              <li>Advocate for stricter emission standards</li>
+              <li>Support renewable energy initiatives</li>
+              <li>Promote industrial pollution regulations</li>
+              <li>Encourage waste reduction policies</li>
+            </ul>
+          </div>
+        </div>
       </div>
 
 

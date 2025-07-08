@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
+import InsightsExport from './InsightsExport';
 import geocodingService from '../services/geocoding';
 import correlationService from '../services/correlationService';
 import { convertEUtoUS, getAQILevel, getAQIColor } from '../utils/aqiConverter';
@@ -55,6 +56,16 @@ const Dashboard = ({ airQualityData, loading, location, industries, onLocationSe
         </div>
         <div className="search-container">
           <SearchBar onLocationSelect={onLocationSelect} />
+        </div>
+        <div className="export-container">
+          <InsightsExport 
+            selectedLocation={location}
+            airQualityData={airQualityData}
+            industries={industries}
+            activeHeatmaps={['airQuality', 'industries']}
+            locationInfo={locationInfo}
+            correlationData={correlationData}
+          />
         </div>
       </div>
 
