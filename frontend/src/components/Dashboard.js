@@ -88,12 +88,12 @@ const Dashboard = ({ airQualityData, loading, location, industries, onLocationSe
                 <span className="unit">μg/m³</span>
               </div>
               <div className="metric-card">
-                <h4>NO2</h4>
+                <h4>NO₂</h4>
                 <span className="value">{airQualityData?.components?.no2?.toFixed(1) || 'N/A'}</span>
                 <span className="unit">μg/m³</span>
               </div>
               <div className="metric-card">
-                <h4>SO2</h4>
+                <h4>SO₂</h4>
                 <span className="value">{airQualityData?.components?.so2?.toFixed(1) || 'N/A'}</span>
                 <span className="unit">μg/m³</span>
               </div>
@@ -131,10 +131,10 @@ const Dashboard = ({ airQualityData, loading, location, industries, onLocationSe
             <strong>PM2.5:</strong> Fine particles ≤2.5μm that penetrate deep into lungs. Major health concern from vehicles and industry.
           </div>
           <div className="metric-item">
-            <strong>NO2:</strong> Nitrogen dioxide from combustion. Causes respiratory issues and contributes to smog formation.
+            <strong>NO₂:</strong> Nitrogen dioxide from combustion. Causes respiratory issues and contributes to smog formation.
           </div>
           <div className="metric-item">
-            <strong>SO2:</strong> Sulfur dioxide from fossil fuel burning. Triggers asthma and forms acid rain.
+            <strong>SO₂:</strong> Sulfur dioxide from fossil fuel burning. Triggers asthma and forms acid rain.
           </div>
         </div>
         <div className="usage-guide">

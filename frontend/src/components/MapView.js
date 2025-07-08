@@ -217,7 +217,7 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
                 {airQualityData?.components && (
                   <div className="pollutant-details">
                     <div>PM2.5: {airQualityData.components.pm2_5?.toFixed(1)} μg/m³</div>
-                    <div>NO2: {airQualityData.components.no2?.toFixed(1)} μg/m³</div>
+                    <div>NO₂: {airQualityData.components.no2?.toFixed(1)} μg/m³</div>
                   </div>
                 )}
                 <div className="aqi-standard-small">European Standard (1-5)</div>
