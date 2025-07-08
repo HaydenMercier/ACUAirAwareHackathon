@@ -47,7 +47,11 @@ const InsightsExport = ({
           useCORS: true,
           allowTaint: true,
           scale: 1.2,
-          backgroundColor: '#ffffff'
+          backgroundColor: '#ffffff',
+          x: 0,
+          y: 0,
+          scrollX: 0,
+          scrollY: 0
         });
         
         // Restore zoom controls
