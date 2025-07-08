@@ -34,6 +34,7 @@ function App() {
   ]);
   const [aqiStandard, setAqiStandard] = useState('EU');
   const [lastUpdated, setLastUpdated] = useState(null);
+  const [currentZoom, setCurrentZoom] = useState(8);
 
   useEffect(() => {
     if (!showHomePage) {
@@ -186,6 +187,8 @@ function App() {
             airQualityData={airQualityData}
             activeHeatmaps={activeHeatmaps}
             activeZoneTypes={activeZoneTypes}
+            currentZoom={currentZoom}
+            onZoomChange={setCurrentZoom}
             timeInterval={timeInterval}
             currentTime={currentTime}
             onIndustriesUpdate={setIndustries}

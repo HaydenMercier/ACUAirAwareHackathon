@@ -25,19 +25,30 @@ const MapClickHandler = ({ onLocationSelect }) => {
   return null;
 };
 
-const MapBounds = () => {
+const MapBounds = ({ onZoomChange }) => {
   const map = useMap();
   
   useEffect(() => {
     map.setMaxBounds([[-85, -180], [85, 180]]);
     map.setMinZoom(2);
     map.setMaxZoom(18);
-  }, [map]);
+    
+    // Track zoom changes
+    const handleZoom = () => {
+      onZoomChange(map.getZoom());
+    };
+    
+    map.on('zoomend', handleZoom);
+    
+    return () => {
+      map.off('zoomend', handleZoom);
+    };
+  }, [map, onZoomChange]);
   
   return null;
 };
 
-const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHeatmaps, activeZoneTypes, timeInterval, currentTime, onIndustriesUpdate }) => {
+const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHeatmaps, activeZoneTypes, currentZoom, onZoomChange, timeInterval, currentTime, onIndustriesUpdate }) => {
   const [selectedIndustry, setSelectedIndustry] = useState(null);
   const [showIndustryModal, setShowIndustryModal] = useState(false);
   const [locationInfo, setLocationInfo] = useState(null);
@@ -55,8 +66,8 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
         const industryData = await overpassService.getIndustries(selectedLocation.lat, selectedLocation.lon, 0.3);
         setIndustries(industryData);
         
-        // Create industrial zones from clustered data
-        const zones = SpatialClustering.clusterIndustries(industryData);
+        // Create industrial zones with zoom-aware clustering
+        const zones = SpatialClustering.clusterIndustries(industryData, currentZoom);
         setIndustrialZones(zones);
         
         onIndustriesUpdate(industryData);
@@ -73,7 +84,7 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
     };
     
     fetchLocationData();
-  }, [selectedLocation]);
+  }, [selectedLocation, currentZoom]);
   
 
 
@@ -137,7 +148,7 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <MapClickHandler onLocationSelect={onLocationSelect} />
         
-        <MapBounds />
+        <MapBounds onZoomChange={onZoomChange} />
         <MapController selectedLocation={selectedLocation} />
         
 

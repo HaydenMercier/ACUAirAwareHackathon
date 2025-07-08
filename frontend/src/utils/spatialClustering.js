@@ -1,10 +1,61 @@
 // Spatial clustering utility for industrial zones
 export class SpatialClustering {
   
-  // Group nearby industries into zones using simple distance clustering
-  static clusterIndustries(industries, maxDistance = 2000) { // 2km threshold
+  // Group nearby industries into zones using zoom-aware clustering
+  static clusterIndustries(industries, zoomLevel = 8) {
     if (!industries || industries.length === 0) return [];
     
+    // Separate industries by type for different clustering distances
+    const industriesByType = industries.reduce((acc, industry) => {
+      const type = industry.type || 'mixed';
+      if (!acc[type]) acc[type] = [];
+      acc[type].push(industry);
+      return acc;
+    }, {});
+    
+    const allZones = [];
+    
+    // Cluster each type with zoom-aware distance
+    Object.entries(industriesByType).forEach(([type, typeIndustries]) => {
+      const maxDistance = this.getZoomAwareDistance(type, zoomLevel);
+      const zones = this.clusterByType(typeIndustries, maxDistance);
+      allZones.push(...zones);
+    });
+    
+    return allZones;
+  }
+  
+  // Get zoom-aware clustering distance based on zone type and zoom level
+  static getZoomAwareDistance(type, zoomLevel) {
+    // Base distances (at zoom level 10)
+    const baseDistances = {
+      'urban': 8000,      // 8km for urban zones (highly generalized)
+      'industrial': 5000, // 5km for industrial (increased)
+      'agriculture': 4000, // 4km for agriculture
+      'mining': 2000,     // 2km for mining
+      'mixed': 3000       // 3km for mixed
+    };
+    
+    const baseDistance = baseDistances[type] || 3000;
+    
+    // Zoom multiplier: lower zoom = more generalization
+    // Zoom 1-5: 4x distance, Zoom 6-8: 2x distance, Zoom 9-12: 1x distance, Zoom 13+: 0.5x distance
+    let zoomMultiplier;
+    if (zoomLevel <= 5) {
+      zoomMultiplier = 4; // Very zoomed out = very generalized
+    } else if (zoomLevel <= 8) {
+      zoomMultiplier = 2; // Moderately zoomed out = moderately generalized
+    } else if (zoomLevel <= 12) {
+      zoomMultiplier = 1; // Normal zoom = base distances
+    } else {
+      zoomMultiplier = 0.5; // Very zoomed in = less generalized
+    }
+    
+    return baseDistance * zoomMultiplier;
+  }
+  
+  // Cluster industries of the same type
+  static clusterByType(industries, maxDistance) {
     const clusters = [];
     const processed = new Set();
     
@@ -14,7 +65,7 @@ export class SpatialClustering {
       const cluster = [industry];
       processed.add(index);
       
-      // Find nearby industries
+      // Find nearby industries of same type
       industries.forEach((other, otherIndex) => {
         if (processed.has(otherIndex)) return;
         
