@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const airQualityRoutes = require('./routes/airQuality');
 const industryRoutes = require('./routes/industry');
+const mlRoutes = require('./routes/ml');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -13,6 +14,7 @@ app.use(express.json());
 
 app.use('/api/air-quality', airQualityRoutes);
 app.use('/api/industries', industryRoutes);
+app.use('/api/ml', mlRoutes);
 
 app.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });

@@ -3,7 +3,8 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents, CircleMarker, use
 import L from 'leaflet';
 import IndustryModal from './IndustryModal';
 import MapController from './MapController';
-import AQIGrid from './AQIGrid';
+import MLHeatmap from './MLHeatmap';
+
 import geocodingService from '../services/geocoding';
 import overpassService from '../services/overpassAPI';
 import { airQualityAPI } from '../services/api';
@@ -178,8 +179,10 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
         <MapBounds onZoomChange={onZoomChange} />
         <MapController selectedLocation={selectedLocation} />
         
-        {/* AQI Grid */}
-        <AQIGrid currentZoom={currentZoom} activeHeatmaps={activeHeatmaps} />
+        {/* ML-Powered AQI Heatmap */}
+        <MLHeatmap currentZoom={currentZoom} activeHeatmaps={activeHeatmaps} selectedLocation={selectedLocation} />
+        
+
         
 
         
@@ -235,24 +238,26 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
           </Popup>
         </Marker>
 
-        {/* Industrial zones with bounding boxes */}
+        {/* Industrial zones */}
         {activeHeatmaps.includes('industries') && industrialZones
           .filter(zone => activeZoneTypes.includes(zone.zoneType))
           .map(zone => (
           <React.Fragment key={zone.id}>
-            {/* Bounding box rectangle */}
-            <Rectangle
-              bounds={zone.bounds}
-              pathOptions={{
-                color: zone.color,
-                weight: 2,
-                opacity: 0.8,
-                fillColor: zone.color,
-                fillOpacity: 0.2
-              }}
-            />
+            {/* Bounding box rectangle - hidden when air quality is active */}
+            {!activeHeatmaps.includes('airQuality') && (
+              <Rectangle
+                bounds={zone.bounds}
+                pathOptions={{
+                  color: zone.color,
+                  weight: 2,
+                  opacity: 0.8,
+                  fillColor: zone.color,
+                  fillOpacity: 0.2
+                }}
+              />
+            )}
             
-            {/* Zone center marker */}
+            {/* Zone center marker - always visible */}
             <Marker 
               position={zone.center}
               icon={L.divIcon({
