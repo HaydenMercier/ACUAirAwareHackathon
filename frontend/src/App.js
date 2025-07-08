@@ -15,7 +15,7 @@ import './styles/App.css';
 
 function App() {
   const [showHomePage, setShowHomePage] = useState(true);
-  const [selectedLocation, setSelectedLocation] = useState({ lat: 32.7767, lon: -96.7970 });
+  const [selectedLocation, setSelectedLocation] = useState({ lat: -33.8406, lon: 151.2094 }); // North Sydney, Australia
   const [airQualityData, setAirQualityData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [timeInterval, setTimeInterval] = useState('year');
@@ -35,6 +35,28 @@ function App() {
   const [aqiStandard, setAqiStandard] = useState('EU');
   const [lastUpdated, setLastUpdated] = useState(null);
   const [currentZoom, setCurrentZoom] = useState(8);
+
+  // Try to get user's current location on app start
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log('📍 Got user location:', position.coords);
+          setSelectedLocation({
+            lat: position.coords.latitude,
+            lon: position.coords.longitude
+          });
+        },
+        (error) => {
+          console.log('📍 Geolocation failed, using North Sydney default:', error.message);
+          // Keep North Sydney as fallback - already set in initial state
+        },
+        { timeout: 5000, enableHighAccuracy: false }
+      );
+    } else {
+      console.log('📍 Geolocation not supported, using North Sydney default');
+    }
+  }, []);
 
   useEffect(() => {
     if (!showHomePage) {
@@ -223,17 +245,6 @@ function App() {
             onLocationSelect={setSelectedLocation}
             aqiStandard={aqiStandard}
           />
-        </div>
-        <div className="quick-facts-area">
-          <div className="education-panel">
-            <h3>💡 Quick Facts</h3>
-            <ul>
-              <li>PM2.5 particles are 30x smaller than human hair width</li>
-              <li>Oil refineries are major sources of NO2 emissions</li>
-              <li>Chemical plants often release SO2 compounds</li>
-              <li>Wind direction affects pollution dispersion patterns</li>
-            </ul>
-          </div>
         </div>
         <div className="footer-area">
           <div className="info-card">

@@ -90,6 +90,18 @@ const HomePage = ({ onEnterApp }) => {
         </div>
       </div>
       
+      <div className="quick-facts-section">
+        <div className="education-panel">
+          <h3>💡 Quick Facts</h3>
+          <ul>
+            <li>PM2.5 particles are 30x smaller than human hair width</li>
+            <li>Oil refineries are major sources of NO2 emissions</li>
+            <li>Chemical plants often release SO2 compounds</li>
+            <li>Wind direction affects pollution dispersion patterns</li>
+          </ul>
+        </div>
+      </div>
+      
       <ContactFooter />
     </div>
   );
