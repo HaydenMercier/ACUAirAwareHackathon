@@ -1380,6 +1380,37 @@ main {
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
+/* Export Button */
+.export-container {
+  margin-top: 15px;
+}
+
+.export-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.export-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.export-btn:active {
+  transform: translateY(0);
+}
+
 @media (max-width: 768px) {
   main {
     grid-template-columns: 1fr;
