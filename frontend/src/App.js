@@ -7,6 +7,7 @@ import TimelineSlider from './components/TimelineSlider';
 import HeatmapToggle from './components/HeatmapToggle';
 import Navbar from './components/Navbar';
 import ErrorBanner from './components/ErrorBanner';
+import PollutionSimulator from './components/PollutionSimulator';
 
 import ContributingIndustries from './components/ContributingIndustries';
 import correlationService from './services/correlationService';
@@ -122,6 +123,11 @@ function App() {
     setShowHomePage(false);
   };
   
+  const handleNavigateSimulator = () => {
+    setCurrentView('simulator');
+    setShowHomePage(false);
+  };
+  
   if (showHomePage) {
     return (
       <div className="App">
@@ -129,8 +135,12 @@ function App() {
           onNavigateHome={handleNavigateHome}
           onNavigateMap={handleNavigateMap}
           onNavigateIndustries={handleNavigateIndustries}
+          onNavigateSimulator={handleNavigateSimulator}
         />
-        <HomePage onEnterApp={handleNavigateMap} />
+        <HomePage 
+          onEnterApp={handleNavigateMap} 
+          onNavigateSimulator={handleNavigateSimulator}
+        />
       </div>
     );
   }
@@ -142,8 +152,23 @@ function App() {
           onNavigateHome={handleNavigateHome}
           onNavigateMap={handleNavigateMap}
           onNavigateIndustries={handleNavigateIndustries}
+          onNavigateSimulator={handleNavigateSimulator}
         />
         <ContributingIndustries />
+      </div>
+    );
+  }
+
+  if (currentView === 'simulator') {
+    return (
+      <div className="App">
+        <Navbar 
+          onNavigateHome={handleNavigateHome}
+          onNavigateMap={handleNavigateMap}
+          onNavigateIndustries={handleNavigateIndustries}
+          onNavigateSimulator={handleNavigateSimulator}
+        />
+        <PollutionSimulator />
       </div>
     );
   }
@@ -154,6 +179,7 @@ function App() {
         onNavigateHome={handleNavigateHome}
         onNavigateMap={handleNavigateMap}
         onNavigateIndustries={handleNavigateIndustries}
+        onNavigateSimulator={handleNavigateSimulator}
       />
       
       <ErrorBanner 

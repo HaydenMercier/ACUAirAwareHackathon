@@ -1,7 +1,7 @@
 import React from 'react';
 import smokestackIcon from '../icons/smokestackiconwhitenotext.png';
 
-const Navbar = ({ onNavigateHome, onNavigateMap, onNavigateIndustries }) => {
+const Navbar = ({ onNavigateHome, onNavigateMap, onNavigateIndustries, onNavigateSimulator }) => {
   return (
     <nav className="header-nav">
       <div className="nav-content">
@@ -14,6 +14,7 @@ const Navbar = ({ onNavigateHome, onNavigateMap, onNavigateIndustries }) => {
           <button onClick={onNavigateHome} className="nav-btn">Home</button>
           <button onClick={onNavigateMap} className="nav-btn">Map</button>
           <button onClick={onNavigateIndustries} className="nav-btn">Industries</button>
+          <button onClick={onNavigateSimulator} className="nav-btn">🌍 Simulator</button>
         </div>
       </div>
     </nav>
