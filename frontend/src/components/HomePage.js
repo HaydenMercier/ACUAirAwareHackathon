@@ -7,15 +7,15 @@ const HomePage = ({ onEnterApp }) => {
     {
       name: 'Oil & Gas',
       icon: '⛽',
-      pollution: 'NO2, SO2, PM2.5',
+      pollution: 'NO₂, SO₂, PM2.5',
       impact: '24% of global emissions',
       description: 'Refineries and extraction operations release nitrogen oxides and particulates'
     },
     {
       name: 'Coal Power',
       icon: '⚡',
-      pollution: 'SO2, PM10, Mercury',
-      impact: '30% of global CO2',
+      pollution: 'SO₂, PM10, Mercury',
+      impact: '30% of global CO₂',
       description: 'Coal combustion produces sulfur dioxide and fine particulate matter'
     },
     {
@@ -35,14 +35,14 @@ const HomePage = ({ onEnterApp }) => {
     {
       name: 'Agriculture',
       icon: '🌾',
-      pollution: 'NH3, Pesticides, PM10',
+      pollution: 'NH₃, Pesticides, PM10',
       impact: '14% of air pollution sources',
       description: 'Livestock farming and crop production release ammonia and particulate matter'
     },
     {
       name: 'Mining',
       icon: '⛏️',
-      pollution: 'PM10, Heavy Metals, SO2',
+      pollution: 'PM10, Heavy Metals, SO₂',
       impact: '8% of industrial emissions',
       description: 'Extraction and processing operations release dust and toxic compounds'
     }
