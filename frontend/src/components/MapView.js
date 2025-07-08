@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents, CircleMarker, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, CircleMarker, useMap, Rectangle } from 'react-leaflet';
 import L from 'leaflet';
 import IndustryModal from './IndustryModal';
 import MapController from './MapController';
 import geocodingService from '../services/geocoding';
 import overpassService from '../services/overpassAPI';
 import { airQualityAPI } from '../services/api';
+import { SpatialClustering } from '../utils/spatialClustering';
 
 // Fix for default markers
 delete L.Icon.Default.prototype._getIconUrl;
@@ -36,11 +37,12 @@ const MapBounds = () => {
   return null;
 };
 
-const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHeatmaps, timeInterval, currentTime, onIndustriesUpdate }) => {
+const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHeatmaps, activeZoneTypes, timeInterval, currentTime, onIndustriesUpdate }) => {
   const [selectedIndustry, setSelectedIndustry] = useState(null);
   const [showIndustryModal, setShowIndustryModal] = useState(false);
   const [locationInfo, setLocationInfo] = useState(null);
   const [industries, setIndustries] = useState([]);
+  const [industrialZones, setIndustrialZones] = useState([]);
   const [correlationData, setCorrelationData] = useState([]);
 
   
@@ -52,6 +54,11 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
         
         const industryData = await overpassService.getIndustries(selectedLocation.lat, selectedLocation.lon, 0.3);
         setIndustries(industryData);
+        
+        // Create industrial zones from clustered data
+        const zones = SpatialClustering.clusterIndustries(industryData);
+        setIndustrialZones(zones);
+        
         onIndustriesUpdate(industryData);
         
         // Fetch correlation data
@@ -107,6 +114,17 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
 
   const getTopIndustries = () => {
     return industries.slice(0, 3).map(ind => ind.name);
+  };
+
+  const getZoneEmoji = (zoneType) => {
+    const emojis = {
+      'industrial': '🏭',  // Factory
+      'mining': '⛏️',      // Pick
+      'agriculture': '🌾', // Wheat
+      'urban': '🏙️',     // Cityscape
+      'mixed': '📍'       // Round pushpin
+    };
+    return emojis[zoneType] || '🏭';
   };
 
   return (
@@ -176,25 +194,44 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
           </Popup>
         </Marker>
 
-        {/* Industry markers */}
-        {activeHeatmaps.includes('industries') && industries.map(industry => (
-          <Marker 
-            key={industry.id} 
-            position={[industry.lat, industry.lon]}
-            icon={L.divIcon({
-              html: industry.icon,
-              iconSize: [30, 30],
-              className: 'industry-marker'
-            })}
-          >
-            <Popup>
-              <div>
-                <strong>{industry.name}</strong><br/>
-                Type: {industry.type}<br/>
-                Primary Emissions: {industry.emissions}
-              </div>
-            </Popup>
-          </Marker>
+        {/* Industrial zones with bounding boxes */}
+        {activeHeatmaps.includes('industries') && industrialZones
+          .filter(zone => activeZoneTypes.includes(zone.zoneType))
+          .map(zone => (
+          <React.Fragment key={zone.id}>
+            {/* Bounding box rectangle */}
+            <Rectangle
+              bounds={zone.bounds}
+              pathOptions={{
+                color: zone.color,
+                weight: 2,
+                opacity: 0.8,
+                fillColor: zone.color,
+                fillOpacity: 0.2
+              }}
+            />
+            
+            {/* Zone center marker */}
+            <Marker 
+              position={zone.center}
+              icon={L.divIcon({
+                html: getZoneEmoji(zone.zoneType),
+                iconSize: [30, 30],
+                className: 'zone-marker'
+              })}
+            >
+              <Popup>
+                <div className="zone-popup">
+                  <strong>{zone.zoneType.charAt(0).toUpperCase() + zone.zoneType.slice(1)} Zone</strong><br/>
+                  <div className="zone-stats">
+                    📊 {zone.facilities} facilities<br/>
+                    📏 {zone.area} km²<br/>
+                    💨 {zone.emissions}
+                  </div>
+                </div>
+              </Popup>
+            </Marker>
+          </React.Fragment>
         ))}
       </MapContainer>
       

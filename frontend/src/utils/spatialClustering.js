@@ -1,0 +1,128 @@
+// Spatial clustering utility for industrial zones
+export class SpatialClustering {
+  
+  // Group nearby industries into zones using simple distance clustering
+  static clusterIndustries(industries, maxDistance = 2000) { // 2km threshold
+    if (!industries || industries.length === 0) return [];
+    
+    const clusters = [];
+    const processed = new Set();
+    
+    industries.forEach((industry, index) => {
+      if (processed.has(index)) return;
+      
+      const cluster = [industry];
+      processed.add(index);
+      
+      // Find nearby industries
+      industries.forEach((other, otherIndex) => {
+        if (processed.has(otherIndex)) return;
+        
+        const distance = this.calculateDistance(
+          industry.lat, industry.lon,
+          other.lat, other.lon
+        );
+        
+        if (distance <= maxDistance) {
+          cluster.push(other);
+          processed.add(otherIndex);
+        }
+      });
+      
+      clusters.push(cluster);
+    });
+    
+    return clusters.map(cluster => this.createIndustrialZone(cluster));
+  }
+  
+  // Create industrial zone from cluster of facilities
+  static createIndustrialZone(facilities) {
+    const lats = facilities.map(f => f.lat);
+    const lons = facilities.map(f => f.lon);
+    
+    const bounds = [
+      [Math.min(...lats) - 0.005, Math.min(...lons) - 0.005], // SW corner with padding
+      [Math.max(...lats) + 0.005, Math.max(...lons) + 0.005]  // NE corner with padding
+    ];
+    
+    const center = [
+      (Math.min(...lats) + Math.max(...lats)) / 2,
+      (Math.min(...lons) + Math.max(...lons)) / 2
+    ];
+    
+    const area = this.calculateBoundingBoxArea(bounds);
+    const zoneType = this.determineZoneType(facilities);
+    
+    return {
+      id: `zone_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      type: 'industrial_zone',
+      zoneType: zoneType,
+      bounds: bounds,
+      center: center,
+      facilities: facilities.length,
+      area: area,
+      emissions: this.getZoneEmissions(zoneType),
+      color: this.getZoneColor(zoneType),
+      facilityList: facilities
+    };
+  }
+  
+  // Calculate distance between two points (Haversine formula)
+  static calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371000; // Earth's radius in meters
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+              Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+  }
+  
+  // Calculate bounding box area in km²
+  static calculateBoundingBoxArea(bounds) {
+    const [[lat1, lon1], [lat2, lon2]] = bounds;
+    const width = this.calculateDistance(lat1, lon1, lat1, lon2);
+    const height = this.calculateDistance(lat1, lon1, lat2, lon1);
+    return ((width * height) / 1000000).toFixed(2); // Convert to km²
+  }
+  
+  // Determine zone type based on facilities
+  static determineZoneType(facilities) {
+    const types = facilities.map(f => f.type);
+    const typeCounts = types.reduce((acc, type) => {
+      acc[type] = (acc[type] || 0) + 1;
+      return acc;
+    }, {});
+    
+    const dominantType = Object.keys(typeCounts).reduce((a, b) => 
+      typeCounts[a] > typeCounts[b] ? a : b
+    );
+    
+    return dominantType;
+  }
+  
+  // Get emissions description for zone type
+  static getZoneEmissions(zoneType) {
+    const emissions = {
+      'industrial': 'Mixed Industrial Emissions',
+      'mining': 'Particulate Matter, Dust',
+      'agriculture': 'NH3, Pesticides',
+      'urban': 'Vehicle Emissions, NO2',
+      'mixed': 'Various Pollutants'
+    };
+    return emissions[zoneType] || 'Mixed Emissions';
+  }
+  
+  // Get color for zone type
+  static getZoneColor(zoneType) {
+    const colors = {
+      'industrial': '#ff6b6b',  // Red
+      'mining': '#8b4513',      // Brown
+      'agriculture': '#90ee90',  // Light green
+      'urban': '#87ceeb',       // Sky blue
+      'mixed': '#dda0dd'        // Plum
+    };
+    return colors[zoneType] || '#ff6b6b';
+  }
+}

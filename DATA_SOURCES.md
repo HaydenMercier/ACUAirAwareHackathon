@@ -2,7 +2,7 @@
 
 ## Air Quality Data
 - **Source**: OpenWeather Air Pollution API
-- **API Key**: dummy
+- **API Key**: 3be424e00a7824fc37f33e2fb6db3eb9
 - **Metrics**: AQI, PM2.5, PM10, NO2, SO2, CO, O3
 - **Status**: REAL DATA (with mock fallback if API fails)
 
