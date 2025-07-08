@@ -104,8 +104,15 @@ export class SpatialClustering {
     const area = this.calculateBoundingBoxArea(bounds);
     const zoneType = this.determineZoneType(facilities);
     
+    // Create stable ID based on facility coordinates
+    const coordHash = facilities
+      .map(f => `${f.lat.toFixed(4)}_${f.lon.toFixed(4)}`)
+      .sort()
+      .join('|');
+    const stableId = `zone_${zoneType}_${this.hashString(coordHash)}`;
+    
     return {
-      id: `zone_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      id: stableId,
       type: 'industrial_zone',
       zoneType: zoneType,
       bounds: bounds,
@@ -175,5 +182,16 @@ export class SpatialClustering {
       'mixed': '#dda0dd'        // Plum
     };
     return colors[zoneType] || '#ff6b6b';
+  }
+  
+  // Simple hash function for stable IDs
+  static hashString(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32-bit integer
+    }
+    return Math.abs(hash).toString(36);
   }
 }

@@ -33,15 +33,21 @@ const MapBounds = ({ onZoomChange }) => {
     map.setMinZoom(2);
     map.setMaxZoom(18);
     
-    // Track zoom changes
+    let zoomTimer = null;
+    
+    // Throttled zoom change handler
     const handleZoom = () => {
-      onZoomChange(map.getZoom());
+      if (zoomTimer) clearTimeout(zoomTimer);
+      zoomTimer = setTimeout(() => {
+        onZoomChange(map.getZoom());
+      }, 150); // 150ms throttle
     };
     
     map.on('zoomend', handleZoom);
     
     return () => {
       map.off('zoomend', handleZoom);
+      if (zoomTimer) clearTimeout(zoomTimer);
     };
   }, [map, onZoomChange]);
   
@@ -55,7 +61,30 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
   const [industries, setIndustries] = useState([]);
   const [industrialZones, setIndustrialZones] = useState([]);
   const [correlationData, setCorrelationData] = useState([]);
+  const [zoomDebounceTimer, setZoomDebounceTimer] = useState(null);
 
+  
+  // Debounced zoom-based re-clustering
+  useEffect(() => {
+    if (industries.length === 0) return;
+    
+    // Clear existing timer
+    if (zoomDebounceTimer) {
+      clearTimeout(zoomDebounceTimer);
+    }
+    
+    // Set new timer for debounced clustering
+    const timer = setTimeout(() => {
+      const zones = SpatialClustering.clusterIndustries(industries, currentZoom);
+      setIndustrialZones(zones);
+    }, 300); // 300ms debounce
+    
+    setZoomDebounceTimer(timer);
+    
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [currentZoom, industries]);
   
   useEffect(() => {
     const fetchLocationData = async () => {
@@ -65,12 +94,9 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
         
         const industryData = await overpassService.getIndustries(selectedLocation.lat, selectedLocation.lon, 0.3);
         setIndustries(industryData);
-        
-        // Create industrial zones with zoom-aware clustering
-        const zones = SpatialClustering.clusterIndustries(industryData, currentZoom);
-        setIndustrialZones(zones);
-        
         onIndustriesUpdate(industryData);
+        
+        // Initial clustering will be handled by the zoom effect above
         
         // Fetch correlation data
         const correlation = await airQualityAPI.getIndustryData({ 
@@ -84,7 +110,7 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
     };
     
     fetchLocationData();
-  }, [selectedLocation, currentZoom]);
+  }, [selectedLocation]);
   
 
 
