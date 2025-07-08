@@ -39,12 +39,14 @@ export class SpatialClustering {
     const baseDistance = baseDistances[type] || 3000;
     
     // Zoom multiplier: lower zoom = more generalization
-    // Zoom 1-5: 4x distance, Zoom 6-8: 2x distance, Zoom 9-12: 1x distance, Zoom 13+: 0.5x distance
+    // Zoom 1-3: 8x distance, Zoom 4-6: 6x distance, Zoom 7-9: 3x distance, Zoom 10-12: 1x distance, Zoom 13+: 0.5x distance
     let zoomMultiplier;
-    if (zoomLevel <= 5) {
-      zoomMultiplier = 4; // Very zoomed out = very generalized
-    } else if (zoomLevel <= 8) {
-      zoomMultiplier = 2; // Moderately zoomed out = moderately generalized
+    if (zoomLevel <= 3) {
+      zoomMultiplier = 8; // Extreme zoom out = maximum generalization
+    } else if (zoomLevel <= 6) {
+      zoomMultiplier = 6; // Very zoomed out = high generalization
+    } else if (zoomLevel <= 9) {
+      zoomMultiplier = 3; // Moderately zoomed out = moderate generalization
     } else if (zoomLevel <= 12) {
       zoomMultiplier = 1; // Normal zoom = base distances
     } else {
