@@ -2,7 +2,7 @@ import React from 'react';
 import ContactFooter from './ContactFooter';
 import smokestackIcon from '../icons/smokestackiconwhite.png';
 
-const HomePage = ({ onEnterApp }) => {
+const HomePage = ({ onEnterApp, onNavigateSimulator }) => {
   const leadingIndustries = [
     {
       name: 'Oil & Gas',
@@ -55,9 +55,14 @@ const HomePage = ({ onEnterApp }) => {
           <img src={smokestackIcon} alt="SmokeStack" className="hero-main-logo" />
         </div>
         <p className="tagline">Track Industrial Air Pollution Impact</p>
-        <button className="enter-app-btn" onClick={onEnterApp}>
-          Explore Air Quality Data
-        </button>
+        <div className="hero-buttons">
+          <button className="enter-app-btn" onClick={onEnterApp}>
+            Explore Air Quality Data
+          </button>
+          <button className="simulator-btn" onClick={onNavigateSimulator}>
+            🌍 Try Pollution Simulator
+          </button>
+        </div>
       </div>
 
       <div className="industries-section">
