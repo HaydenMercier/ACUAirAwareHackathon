@@ -267,24 +267,46 @@ const ContributingIndustries = () => {
 
       <div className="action-section">
         <h2>Take Action for Cleaner Air</h2>
-        <div className="action-grid">
-          <div className="action-card">
-            <h3>Individual Actions</h3>
-            <ul>
-              <li>Use public transportation or electric vehicles</li>
-              <li>Reduce energy consumption at home</li>
-              <li>Choose renewable energy sources</li>
-              <li>Support sustainable agriculture</li>
-            </ul>
+        <div className="household-actions">
+          <div className="action-item">
+            <h4>Install Solar Panels</h4>
+            <p>Switch from coal-powered electricity to solar energy. Government subsidies can reduce installation costs by 30-50%, and solar panels typically pay for themselves within 6-10 years through lower electricity bills. Solar energy produces zero emissions compared to coal power, which releases 2.2 billion tons of CO₂ annually.</p>
           </div>
-          <div className="action-card">
-            <h3>Policy Support</h3>
-            <ul>
-              <li>Advocate for stricter emission standards</li>
-              <li>Support renewable energy initiatives</li>
-              <li>Promote industrial pollution regulations</li>
-              <li>Encourage waste reduction policies</li>
-            </ul>
+          <div className="action-item">
+            <h4>Choose Electric or Hybrid Vehicles</h4>
+            <p>Replace gasoline cars with electric vehicles to eliminate direct emissions. EVs produce 60% fewer emissions than gas cars over their lifetime, even accounting for electricity generation. Many governments offer tax incentives up to $7,500 for EV purchases.</p>
+          </div>
+          <div className="action-item">
+            <h4>Use LED Light Bulbs</h4>
+            <p>Replace incandescent bulbs with LEDs, which use 75% less energy and last 25 times longer. A typical household can save $75 annually on electricity bills while reducing CO₂ emissions by 1,000 pounds per year.</p>
+          </div>
+          <div className="action-item">
+            <h4>Buy Local and Organic Food</h4>
+            <p>Choose locally grown, organic produce to reduce transportation emissions and pesticide use. Local food travels 27 times less distance than conventional food, cutting transportation-related CO₂ emissions significantly.</p>
+          </div>
+          <div className="action-item">
+            <h4>Use Eco-Friendly Cleaning Products</h4>
+            <p>Switch to plant-based, biodegradable cleaners that don't release volatile organic compounds (VOCs) into your home air. These products reduce indoor air pollution and prevent harmful chemicals from entering waterways.</p>
+          </div>
+          <div className="action-item">
+            <h4>Install a Programmable Thermostat</h4>
+            <p>Smart thermostats can reduce heating and cooling energy use by 10-15%, saving $180 annually while cutting CO₂ emissions. They automatically adjust temperature when you're away, optimizing energy efficiency.</p>
+          </div>
+          <div className="action-item">
+            <h4>Choose Reusable Products</h4>
+            <p>Replace single-use items with reusable alternatives like water bottles, shopping bags, and food containers. This reduces plastic waste that releases toxic chemicals when burned in incinerators or decomposing in landfills.</p>
+          </div>
+          <div className="action-item">
+            <h4>Use Public Transportation</h4>
+            <p>Take buses, trains, or bikes instead of driving alone. Public transit produces 45% fewer CO₂ emissions per passenger mile than private vehicles. A single bus can replace 40 cars on the road during peak hours.</p>
+          </div>
+          <div className="action-item">
+            <h4>Plant Trees and Gardens</h4>
+            <p>Plant native trees and maintain gardens to absorb CO₂ from the atmosphere. A mature tree absorbs 48 pounds of CO₂ annually, while home gardens reduce the need for transported produce and provide natural air filtration.</p>
+          </div>
+          <div className="action-item">
+            <h4>Choose Energy-Efficient Appliances</h4>
+            <p>Buy ENERGY STAR certified appliances that use 10-50% less energy than standard models. An efficient refrigerator can save $300 over its lifetime while preventing 3,000 pounds of CO₂ emissions annually.</p>
           </div>
         </div>
       </div>
