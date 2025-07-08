@@ -173,7 +173,7 @@ const ContributingIndustries = () => {
   return (
     <div className="contributing-industries-page">
       <div className="industries-hero">
-        <h1>Industries Contributing to Global Air Pollution</h1>
+        <h1>Top 5 Contributing Industries to Global Air Pollution</h1>
         <p className="hero-subtitle">Understanding the major sources of air pollution and their environmental impact</p>
       </div>
 
@@ -181,10 +181,6 @@ const ContributingIndustries = () => {
         {industries.map((industry, index) => (
           <section key={index} className="industry-section">
             <div className="industry-header">
-              <div className="industry-visual">
-                <span className="industry-main-icon">{industry.icon}</span>
-                <span className="industry-image">{industry.image}</span>
-              </div>
               <div className="industry-title">
                 <h2>{industry.name}</h2>
               </div>
@@ -273,7 +269,7 @@ const ContributingIndustries = () => {
         <h2>Take Action for Cleaner Air</h2>
         <div className="action-grid">
           <div className="action-card">
-            <h3>🌱 Individual Actions</h3>
+            <h3>Individual Actions</h3>
             <ul>
               <li>Use public transportation or electric vehicles</li>
               <li>Reduce energy consumption at home</li>
@@ -282,7 +278,7 @@ const ContributingIndustries = () => {
             </ul>
           </div>
           <div className="action-card">
-            <h3>🏛️ Policy Support</h3>
+            <h3>Policy Support</h3>
             <ul>
               <li>Advocate for stricter emission standards</li>
               <li>Support renewable energy initiatives</li>

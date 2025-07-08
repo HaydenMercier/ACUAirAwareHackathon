@@ -22,6 +22,7 @@ function App() {
   const [timeInterval, setTimeInterval] = useState('year');
   const [currentTime, setCurrentTime] = useState(2024);
   const [activeHeatmaps, setActiveHeatmaps] = useState(['airQuality']);
+  const [activeZoneTypes, setActiveZoneTypes] = useState(['industrial', 'mining', 'agriculture', 'urban', 'mixed']);
   const [currentView, setCurrentView] = useState('home');
   const [industries, setIndustries] = useState([]);
   const [apiError, setApiError] = useState(null);
@@ -34,6 +35,7 @@ function App() {
   ]);
   const [aqiStandard, setAqiStandard] = useState('EU');
   const [lastUpdated, setLastUpdated] = useState(null);
+  const [currentZoom, setCurrentZoom] = useState(8);
 
   useEffect(() => {
     if (!showHomePage) {
@@ -198,6 +200,8 @@ function App() {
         <HeatmapToggle 
           activeHeatmaps={activeHeatmaps}
           onToggle={handleHeatmapToggle}
+          activeZoneTypes={activeZoneTypes}
+          onZoneTypeToggle={setActiveZoneTypes}
         />
       </div>
 
@@ -208,6 +212,9 @@ function App() {
             onLocationSelect={setSelectedLocation}
             airQualityData={airQualityData}
             activeHeatmaps={activeHeatmaps}
+            activeZoneTypes={activeZoneTypes}
+            currentZoom={currentZoom}
+            onZoomChange={setCurrentZoom}
             timeInterval={timeInterval}
             currentTime={currentTime}
             onIndustriesUpdate={setIndustries}
