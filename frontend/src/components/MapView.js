@@ -3,7 +3,8 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents, CircleMarker, use
 import L from 'leaflet';
 import IndustryModal from './IndustryModal';
 import MapController from './MapController';
-import MLHeatmap from './MLHeatmap';
+import AQIHeatmap from './AQIHeatmap';
+
 
 import geocodingService from '../services/geocoding';
 import overpassService from '../services/overpassAPI';
@@ -179,8 +180,10 @@ const MapView = ({ selectedLocation, onLocationSelect, airQualityData, activeHea
         <MapBounds onZoomChange={onZoomChange} />
         <MapController selectedLocation={selectedLocation} />
         
-        {/* ML-Powered AQI Heatmap */}
-        <MLHeatmap currentZoom={currentZoom} activeHeatmaps={activeHeatmaps} selectedLocation={selectedLocation} />
+        {/* AQI Heatmap */}
+        <AQIHeatmap selectedLocation={selectedLocation} activeHeatmaps={activeHeatmaps} />
+        
+
         
 
         
